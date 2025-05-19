@@ -1,0 +1,269 @@
+import React, { useState, useEffect } from 'react';
+import { Container, Typography, Box, Stepper, Step, StepLabel, Button } from '@mui/material';
+import HomeIcon from '@mui/icons-material/Home';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import Step1 from './Step1';
+import Step2 from './Step2';
+import Step3 from './Step3';
+
+const API_URL = process.env.REACT_APP_API_URL || 'https://essencal-form-backend.onrender.com';
+
+function formatCep(value) {
+  // Remove tudo que não for número
+  value = value.replace(/\D/g, '');
+
+  // Adiciona o traço no formato 12345-678
+  if (value.length > 5) {
+    value = value.slice(0, 5) + '-' + value.slice(5, 8);
+  }
+
+  return value;
+}
+
+function Form() {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    fullName: '',
+    phone: '',
+    cpf: '',
+    rg: '',
+    email: '',
+    birthDate: '',
+    gender: '',
+    maritalStatus: '',
+    nationality: '',
+    cep: '',
+    uf: '',
+    cidade: '',
+    endereco: '',
+    numero: '',
+    bairro: '',
+    complemento: '',
+    tipoResidencia: '',
+    tempoResidencia: '',
+    limiteDisponivel: '',
+    valorEmprestimo: '',
+    bandeiraCartao: '',
+    confirmacao: false,
+    availableLimit: '',
+    requestedAmount: '',
+  });
+
+  const [cepError, setCepError] = useState('');
+  const [activeStep, setActiveStep] = useState(0);
+  const [currentView, setCurrentView] = useState('dadosPessoais');
+
+  useEffect(() => {
+    // Recarrega dados pessoais sempre que a tela de dados pessoais for exibida
+    if (currentView !== 'dadosPessoais') return;
+    const fetchPersonalData = async () => {
+      try {
+        const response = await fetch(`${API_URL}/personal-data/get/`, {
+          method: 'GET',
+          credentials: 'include', // importante para autenticação por sessão
+        });
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data);
+          // Só preenche se houver dados
+          if (!data.error) {
+            setFormData((prev) => ({ ...prev, ...data }));
+          }
+        }
+      } catch (error) {
+        // Silencie erro de usuário sem dados
+      }
+    };
+    fetchPersonalData();
+  }, [currentView]);
+
+  const steps = ['Informações Pessoais', 'Dados de Endereço', 'Finalizar'];
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleCheckboxChange = (e) => {
+    setFormData({ ...formData, confirmacao: e.target.checked });
+  };
+
+  const handleCepChange = async (e) => {
+    const input = e.target;
+    const start = input.selectionStart;
+    const end = input.selectionEnd;
+
+    const formattedCep = formatCep(input.value);
+    setFormData((prevData) => {
+      const updatedData = { ...prevData, cep: formattedCep };
+
+      // Reposiciona o cursor corretamente
+      const diff = formattedCep.length - input.value.length;
+      input.setSelectionRange(start + diff, end + diff);
+
+      return updatedData;
+    });
+
+    // Valida o formato do CEP
+    if (formattedCep.length === 9 && !/^\d{5}-\d{3}$/.test(formattedCep)) {
+      setCepError('CEP inválido. Use o formato 12345-678.');
+      return;
+    } else {
+      setCepError('');
+    }
+
+    // Busca informações do CEP se o formato for válido
+    if (formattedCep.length === 9) {
+      try {
+        const response = await axios.get(`https://viacep.com.br/ws/${formattedCep.replace('-', '')}/json/`);
+        if (response.data.erro) {
+          setCepError('CEP não encontrado.');
+        } else {
+          const { logradouro, bairro, localidade, uf } = response.data;
+          setFormData((prevData) => ({
+            ...prevData,
+            endereco: logradouro || '',
+            bairro: bairro || '',
+            cidade: localidade || '',
+            uf: uf || '',
+          }));
+        }
+      } catch (error) {
+        setCepError('Erro ao buscar o CEP. Tente novamente.');
+        console.error('Erro ao buscar o CEP:', error);
+      }
+    }
+  };
+
+  // Função para salvar dados parciais a cada avanço de etapa
+  const savePartialData = async (partialData) => {
+    try {
+      await fetch(`${API_URL}/personal-data/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(partialData),
+      });
+    } catch (error) {
+      // Silencie erro para não travar o fluxo do usuário
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    try {
+      const response = await fetch(`${API_URL}/personal-data/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include', // importante para autenticação por sessão
+        body: JSON.stringify(formData),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data)
+        //alert(data.message || 'Dados enviados com sucesso!');
+      } else {
+        const errorData = await response.json();
+        alert(errorData.error || 'Erro ao enviar os dados.');
+      }
+    } catch (error) {
+      alert('Erro ao conectar com o servidor.');
+      console.error(error);
+    }
+  };
+
+  return (
+    <>
+      {currentView === 'dadosPessoais' && (
+        <Container maxWidth={true} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <Box sx={{ mt: 5, p: 3, boxShadow: 3, borderRadius: 2, backgroundColor: 'white', width: '80%' }}>
+            <Stepper activeStep={activeStep} alternativeLabel>
+              {steps.map((label) => (
+                <Step key={label}>
+                  <StepLabel>{label}</StepLabel>
+                </Step>
+              ))}
+            </Stepper>
+            <Typography variant="h5" component="h1" gutterBottom sx={{ mt: 3 }}>
+              {steps[activeStep]}
+            </Typography>
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+              {activeStep === 0 && <Step1 formData={formData} handleChange={handleChange} onNext={handleNext} onSave={savePartialData} />}
+              {activeStep === 1 && (
+                <Step2
+                  formData={formData}
+                  handleChange={handleChange}
+                  handleCepChange={handleCepChange}
+                  cepError={cepError}
+                  onNext={handleNext}
+                  onBack={handleBack}
+                  onSave={savePartialData}
+                />
+              )}
+              {activeStep === 2 && (
+                <Step3
+                  formData={formData}
+                  handleChange={handleChange}
+                  handleCheckboxChange={handleCheckboxChange}
+                  onBack={handleBack}
+                  onSubmit={handleSubmit}
+                  onSave={savePartialData}
+                />
+              )}
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => navigate('/menu')}
+                startIcon={<HomeIcon sx={{ color: '#0033ff' }} />}
+                sx={{
+                  mt: 2,
+                  color: '#0033ff',
+                  borderColor: '#0033ff',
+                  background: 'none',
+                  boxShadow: 'none',
+                  fontWeight: 'bold',
+                  fontSize: 18,
+                  textTransform: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '100%',
+                  height: '48px',
+                  alignSelf: 'center',
+                  '&:hover': {
+                    background: 'none',
+                    borderColor: '#0033ff',
+                    color: '#0033ff',
+                    textDecoration: 'underline',
+                  },
+                }}
+              >
+                Voltar
+              </Button>
+            </form>
+            <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+            </Box>
+          </Box>
+        </Container>
+      )}
+      {currentView === 'solicitarEmprestimo' && (
+        <Typography variant="h4" align="center" sx={{ mt: 5 }}>
+          Página de Solicitação de Empréstimo em construção.
+        </Typography>
+      )}
+    </>
+  );
+}
+
+export default Form;

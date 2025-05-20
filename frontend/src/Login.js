@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { TextField, Button, Container, Typography, Box, Link, Alert } from '@mui/material';
+import { TextField, Button, Container, Typography, Box, Link, Alert, CircularProgress } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const API_URL = process.env.REACT_APP_API_URL || 'https://essencal-form-backend.onrender.com';
 
 function Login() {
   const [formData, setFormData] = useState({ email: '', password: '' });
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -15,6 +16,7 @@ function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       // Solicita o token JWT
       const tokenResponse = await fetch(`${API_URL}/api/token/`, {
@@ -32,6 +34,8 @@ function Login() {
       }
     } catch (error) {
       alert('Erro ao conectar com o servidor.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -103,9 +107,10 @@ function Login() {
             variant="contained"
             color="primary"
             type="submit"
+            disabled={loading}
             sx={{ mt: 2, backgroundColor: '#0033ff', color: '#fff', fontWeight: 'bold', borderRadius: 2, height: '48px', boxShadow: 'none', textTransform: 'none', fontSize: 18, '&:hover': { backgroundColor: '#0022aa' } }}
           >
-            Continuar
+            {loading ? <CircularProgress size={26} sx={{ color: '#fff' }} /> : 'Continuar'}
           </Button>
         </form>
         <Typography variant="body2" align="center" sx={{ mt: 2, color: 'black' }}>

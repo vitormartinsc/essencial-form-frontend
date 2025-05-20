@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Typography, CircularProgress } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -11,6 +11,7 @@ const API_URL = process.env.REACT_APP_API_URL || 'https://essencal-form-backend.
 const Menu = ({ onNavigate }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [showPersonalDataWarning, setShowPersonalDataWarning] = React.useState(false);
+  const [actionLoading, setActionLoading] = React.useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
@@ -48,14 +49,16 @@ const Menu = ({ onNavigate }) => {
   const [loading, setLoading] = React.useState(true);
 
   const handleLoanClick = () => {
-    console.log(personalData)
-
     if (!personalData || !isPersonalDataComplete(personalData)) {
       setShowPersonalDataWarning(true);
       return;
     }
     setShowPersonalDataWarning(false);
-    window.location.href = '/loan-apply';
+    setActionLoading(true);
+    // Pequeno delay para garantir renderização do spinner antes da navegação
+    setTimeout(() => {
+      window.location.href = '/loan-apply';
+    }, 150);
   };
 
   React.useEffect(() => {
@@ -194,7 +197,7 @@ const Menu = ({ onNavigate }) => {
               variant="contained"
               startIcon={<AttachMoneyIcon />}
               onClick={handleLoanClick}
-              disabled={loading}
+              disabled={loading || actionLoading}
               sx={{
                 minHeight: '48px',
                 px: 3,
@@ -206,7 +209,7 @@ const Menu = ({ onNavigate }) => {
                 justifyContent: 'flex-start',
                 background: '#0033ff',
                 color: '#fff',
-                opacity: loading ? 0.5 : 1,
+                opacity: loading || actionLoading ? 0.5 : 1,
                 touchAction: 'manipulation',
                 textTransform: 'none',
                 '&:hover': {
@@ -215,7 +218,7 @@ const Menu = ({ onNavigate }) => {
                 },
               }}
             >
-              Novo Empréstimo
+              {actionLoading ? <CircularProgress size={26} sx={{ color: '#fff' }} /> : 'Novo Empréstimo'}
             </Button>
             <Button
               color="primary"

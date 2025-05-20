@@ -109,7 +109,10 @@ function Login() {
           </Button>
         </form>
         <Typography variant="body2" align="center" sx={{ mt: 2, color: 'black' }}>
-          Não possui uma conta? <Link href="/">Cadastre-se!</Link>
+          Não possui uma conta?{' '}
+          <Link href="#" onClick={e => { e.preventDefault(); navigate('/register'); }}>
+            Cadastre-se!
+          </Link>
         </Typography>
       </Box>
     </Container>

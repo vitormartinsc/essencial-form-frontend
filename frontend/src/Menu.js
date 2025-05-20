@@ -13,12 +13,9 @@ const Menu = ({ onNavigate }) => {
   const [showPersonalDataWarning, setShowPersonalDataWarning] = React.useState(false);
 
   const handleLogout = () => {
-    fetch(`${API_URL}/logout/`, {
-      method: 'POST',
-      credentials: 'include',
-    }).finally(() => {
-      window.location.href = '/login';
-    });
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    window.location.href = '/login';
   };
 
   // Função para checar se todos os dados pessoais obrigatórios estão preenchidos
@@ -65,9 +62,10 @@ const Menu = ({ onNavigate }) => {
     // Busca os dados pessoais do usuário ao abrir o menu
     const fetchPersonalData = async () => {
       try {
+        const token = localStorage.getItem('accessToken');
         const response = await fetch(`${API_URL}/personal-data/get/`, {
           method: 'GET',
-          credentials: 'include',
+          headers: token ? { 'Authorization': `Bearer ${token}` } : {},
         });
         if (response.ok) {
           const data = await response.json();

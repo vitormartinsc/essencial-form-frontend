@@ -19,7 +19,6 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin: auto; /* Garante margens iguais à esquerda e à direita */
   position: relative;
-  top: 50%;
 }
 
 .App-header {
@@ -40,17 +39,17 @@ body {
   width: 100vw;
   min-width: 100vw;
   max-width: 100vw;
-  height: 56px;
-  background: #0033ff;
+  height: auto;
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0;
   padding: 0;
   position: relative;
-  left: 50%;
-  right: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
+  transform: none;
   box-sizing: border-box;
   z-index: 10;
 }
@@ -64,9 +63,13 @@ body {
 
 .App-header-ruler {
   display: block;
-  width: 100%;
-  height: 56px;
+  width: 100vw;
+  min-width: 100vw;
+  max-width: 100vw;
+  height: 100px;
   object-fit: cover;
+  margin: 0;
+  padding: 0;
 }
 
 .App-logo {
@@ -83,21 +86,28 @@ h1 {
 form {
   background-color: #FFFFFF; /* Fundo branco para contraste */
   color: #0033ff; /* Azul principal para o texto */
-  padding: 100px;
+  padding: 32px 12px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
-form input {
+form input, input[type="text"], input[type="password"] {
   width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border: 1px solid #ccc; /* Adiciona uma borda leve */
-  border-radius: 8px; /* Bordas arredondadas */
-  background: #f9f9f9; /* Fundo claro para os inputs */
-  color: #333; /* Texto escuro */
-  font-size: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Efeito de sombra leve */
+  max-width: 400px;
+  margin-left: 0;
+  margin-right: 0;
+  display: block;
+  min-height: 44px;
+  font-size: 1.1rem;
+  padding: 12px 10px;
+  box-sizing: border-box;
 }
 
 form input::placeholder {
@@ -179,5 +189,84 @@ form button:hover {
 
   .form-container input {
     flex: 1 1 45%; /* Inputs ocupam metade da largura */
+  }
+}
+
+body, html {
+  background: #fff !important;
+  color: #0033ff !important;
+}
+
+/* Removido .App, .MuiContainer-root, .MuiBox-root das regras globais para não sobrescrever cartões customizados */
+.App, form, input {
+  background: #fff !important;
+  color: #0033ff !important;
+  border-color: #0033ff !important;
+}
+
+/* Classe exclusiva para o cartão de crédito do LoanApplyStep2 */
+.loan-card-gradient {
+  background: linear-gradient(135deg, #0056FF 0%, #003D99 100%) !important;
+  color: #fff !important;
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  position: relative;
+  width: 320px;
+  height: 200px;
+}
+
+@media (max-width: 600px), (prefers-color-scheme: dark) {
+  html, body {
+    background: #fff !important;
+    color: #0033ff !important;
+  }
+  .MuiPaper-root, .MuiStep-root, .MuiStepLabel-root, .MuiStepLabel-label, .MuiStepIcon-root {
+    background: #fff !important;
+    color: #0033ff !important;
+  }
+  .MuiAlert-root, .MuiAlert-message {
+    background: #fff !important;
+    color: #0033ff !important;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .App-header-full {
+    width: 100vw !important;
+    min-width: 100vw !important;
+    max-width: 100vw !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    box-sizing: border-box;
+    background: #0033ff !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .App-header-container {
+    width: 100vw !important;
+    min-width: 100vw !important;
+    max-width: 100vw !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .App-header-ruler {
+    width: 100vw !important;
+    min-width: 100vw !important;
+    max-width: 100vw !important;
+    height: 80px !important;
+    display: block;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    object-fit: cover !important;
   }
 }

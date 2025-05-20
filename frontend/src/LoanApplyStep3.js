@@ -74,7 +74,7 @@ const LoanApplyStep3 = ({ formData, setFormData, showValidationErrors, errors = 
 
       {formData.documentType === 'RG' || documentType === 'RG' ? (
         <Box sx={{ display: 'flex', justifyContent: 'center', gap: 4, mb: 2, alignItems: 'center' }}>
-          <Box sx={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#e3f2fd', padding: '10px', borderRadius: '10px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}>
+          <Box sx={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#e3f2fd', padding: '15px', borderRadius: '10px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}>
             <Typography variant="body2" sx={{ mb: 1, color: '#0056FF', fontWeight: 'bold' }}>Foto da frente da Identidade</Typography>
             <img
               src={idFrente}

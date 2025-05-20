@@ -47,6 +47,7 @@ export function validateLoanStep2(formData) {
 }
 
 const LoanApplyStep2 = ({ formData, setFormData, showValidationErrors, errors = {} }) => {
+  console.log('LoanApplyStep2 formData:', formData); // DEBUG
   return (
     <Container
       maxWidth="sm"
@@ -66,9 +67,9 @@ const LoanApplyStep2 = ({ formData, setFormData, showValidationErrors, errors = 
           sx={{
             width: '320px',
             height: '200px',
-            background: 'linear-gradient(135deg, #0056FF, #003D99)', // Gradiente azul
+            background: 'linear-gradient(135deg, #0056FF 0%, #003D99 100%) !important', // Força gradiente azul
             color: '#fff',
-            borderRadius: '15px', // Bordas arredondadas
+            borderRadius: '15px',
             padding: '20px',
             display: 'flex',
             flexDirection: 'column',
@@ -96,27 +97,29 @@ const LoanApplyStep2 = ({ formData, setFormData, showValidationErrors, errors = 
               position: 'absolute',
               top: '20px',
               right: '20px',
-              backgroundColor: '#fff', // Fundo branco para a logo
-              borderRadius: '50%', // Deixa o fundo arredondado
-              padding: '5px', // Espaçamento interno para a logo
+              backgroundColor: '#fff',
+              borderRadius: '50%',
+              padding: '5px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)', // Sombra para destacar a logo
+              boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+              width: { xs: '42px', sm: '58px' }, // Limita largura em telas pequenas
+              height: { xs: '42px', sm: '58px' }, // Limita altura em telas pequenas
             }}
           >
             {formData.cardBrand && formData.cardBrand !== 'generic' ? (
               <img
                 src={require(`./assets/${formData.cardBrand.toLowerCase().replace(' ', '_')}.svg`)}
                 alt={formData.cardBrand}
-                style={{ width: '40px', height: 'auto' }}
+                style={{ width: '100%', height: '100%', objectFit: 'contain', maxWidth: 42, maxHeight: 42 }} // Limita tamanho da logo
               />
             ) : (
               <Box
                 sx={{
-                  width: '40px',
-                  height: '40px',
-                  backgroundColor: '#fff', // Fundo branco
+                  width: '100%',
+                  height: '100%',
+                  backgroundColor: '#fff',
                   borderRadius: '50%',
                 }}
               />
@@ -128,11 +131,15 @@ const LoanApplyStep2 = ({ formData, setFormData, showValidationErrors, errors = 
             variant="h6"
             sx={{
               color: '#fff',
-              letterSpacing: '0.2em',
-              fontSize: '1.4rem',
+              letterSpacing: '0.12em', // Reduzido
+              fontSize: '1.1rem', // Reduzido
               display: 'flex',
               justifyContent: 'center',
               marginTop: '60px',
+              whiteSpace: 'nowrap', // Impede quebra de linha
+              overflow: 'hidden', // Esconde excesso
+              textOverflow: 'ellipsis', // Adiciona reticências se necessário
+              width: '100%',
             }}
           >
             {(formData.cardNumber.replace(/\D/g, '').padEnd(16, '•')

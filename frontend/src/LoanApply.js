@@ -20,7 +20,9 @@ const LoanApply = () => {
     cardNumber: '',
     cardName: '',
     cardExpiry: '',
-    cardBrand: '',
+    cardBrand: 'generic', // Garante valor default para não quebrar o cartão
+    // Adicione todos os campos esperados pelos steps para garantir que nunca fiquem undefined
+    // Isso evita sumiço do cartão e outros bugs visuais
   });
 
   const [loanAmountError, setLoanAmountError] = useState(false);
@@ -55,10 +57,11 @@ const LoanApply = () => {
         }
       });
       try {
+        const token = localStorage.getItem('accessToken');
         const response = await fetch(`${API_URL}/loan-apply/`, {
           method: 'POST',
           body: formDataToSend,
-          credentials: 'include',
+          headers: token ? { 'Authorization': `Bearer ${token}` } : {},
         });
         if (response.ok) {
           alert('Solicitação enviada com sucesso!');

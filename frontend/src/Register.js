@@ -3,7 +3,7 @@ import { TextField, Button, Container, Typography, Box, Link, Alert } from '@mui
 import { useNavigate } from 'react-router-dom';
 
 const API_URL = process.env.REACT_APP_API_URL || 'https://essencal-form-backend.onrender.com';
-
+console.log(API_URL);
 function Register() {
   const [formData, setFormData] = useState({ fullName: '', email: '', phone: '', password: '', confirmPassword: '' });
   const [errors, setErrors] = useState({});
@@ -57,7 +57,6 @@ function Register() {
       const response = await fetch(`${API_URL}/register/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
         body: JSON.stringify({
           username: formData.email, // username obrigatório para o backend
           fullName: formData.fullName,
@@ -68,7 +67,24 @@ function Register() {
       });
       const data = await response.json();
       if (data.message) {
-        navigate('/form');
+        // Login automático via JWT após registro
+        const tokenRes = await fetch(`${API_URL}/api/token/`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username: formData.email,
+            password: formData.password
+          })
+        });
+        if (tokenRes.ok) {
+          const tokenData = await tokenRes.json();
+          localStorage.setItem('accessToken', tokenData.access);
+          localStorage.setItem('refreshToken', tokenData.refresh);
+          navigate('/form');
+        } else {
+          alert('Cadastro realizado, mas não foi possível autenticar automaticamente. Faça login.');
+          navigate('/login');
+        }
       } else {
         alert(data.error);
       }

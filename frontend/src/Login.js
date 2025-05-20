@@ -16,20 +16,22 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${API_URL}/login/`, {
+      // Solicita o token JWT
+      const tokenResponse = await fetch(`${API_URL}/api/token/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
         body: JSON.stringify({ username: formData.email, password: formData.password }),
       });
-      const data = await response.json();
-      if (data.message) {
+      const tokenData = await tokenResponse.json();
+      if (tokenData.access) {
+        localStorage.setItem('accessToken', tokenData.access);
+        localStorage.setItem('refreshToken', tokenData.refresh);
         navigate('/menu');
       } else {
-        alert(data.error);
+        alert(tokenData.detail || 'Credenciais inválidas');
       }
     } catch (error) {
-      console.error('Error:', error);
+      alert('Erro ao conectar com o servidor.');
     }
   };
 

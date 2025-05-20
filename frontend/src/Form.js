@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
+import './MobileInputs.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'https://essencal-form-backend.onrender.com';
 
@@ -19,6 +20,16 @@ function formatCep(value) {
   }
 
   return value;
+}
+
+// Utilitário para converter camelCase para snake_case
+function toSnakeCase(obj) {
+  const newObj = {};
+  for (const key in obj) {
+    const snakeKey = key.replace(/([A-Z])/g, "_$1").toLowerCase();
+    newObj[snakeKey] = obj[key];
+  }
+  return newObj;
 }
 
 function Form() {
@@ -55,18 +66,16 @@ function Form() {
   const [currentView, setCurrentView] = useState('dadosPessoais');
 
   useEffect(() => {
-    // Recarrega dados pessoais sempre que a tela de dados pessoais for exibida
     if (currentView !== 'dadosPessoais') return;
     const fetchPersonalData = async () => {
       try {
+        const token = localStorage.getItem('accessToken');
         const response = await fetch(`${API_URL}/personal-data/get/`, {
           method: 'GET',
-          credentials: 'include', // importante para autenticação por sessão
+          headers: token ? { 'Authorization': `Bearer ${token}` } : {},
         });
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
-          // Só preenche se houver dados
           if (!data.error) {
             setFormData((prev) => ({ ...prev, ...data }));
           }
@@ -146,12 +155,16 @@ function Form() {
 
   // Função para salvar dados parciais a cada avanço de etapa
   const savePartialData = async (partialData) => {
+    console.log(partialData)
     try {
+      const token = localStorage.getItem('accessToken');
       await fetch(`${API_URL}/personal-data/`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify(partialData),
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify(toSnakeCase(partialData)),
       });
     } catch (error) {
       // Silencie erro para não travar o fluxo do usuário
@@ -161,17 +174,17 @@ function Form() {
   const handleSubmit = async (e) => {
     if (e && e.preventDefault) e.preventDefault();
     try {
+      const token = localStorage.getItem('accessToken');
       const response = await fetch(`${API_URL}/personal-data/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
         },
-        credentials: 'include', // importante para autenticação por sessão
-        body: JSON.stringify(formData),
+        body: JSON.stringify(toSnakeCase(formData)),
       });
       if (response.ok) {
         const data = await response.json();
-        console.log(data)
         //alert(data.message || 'Dados enviados com sucesso!');
       } else {
         const errorData = await response.json();

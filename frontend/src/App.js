@@ -12,7 +12,9 @@ function App() {
   return (
     <>
       <header className="App-header-full">
-        <ReguaH1 style={{ width: '100%', height: '56px', display: 'block' }} />
+        <div className="App-header-container">
+          <ReguaH1 className="App-header-ruler" />
+        </div>
       </header>
       <div className="App">
         <Router>

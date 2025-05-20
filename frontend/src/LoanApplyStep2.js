@@ -47,7 +47,6 @@ export function validateLoanStep2(formData) {
 }
 
 const LoanApplyStep2 = ({ formData, setFormData, showValidationErrors, errors = {} }) => {
-  console.log('LoanApplyStep2 formData:', formData); // DEBUG
   return (
     <Container
       maxWidth="sm"

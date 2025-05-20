@@ -69,7 +69,21 @@ const Menu = ({ onNavigate }) => {
         });
         if (response.ok) {
           const data = await response.json();
-          setPersonalData(data);
+          if (!data.error) {
+            setPersonalData({
+              ...data,
+              fullName: data.fullName || data.full_name || data.nome_completo || '',
+              birthDate: data.birthDate || data.birth_date || data.data_nascimento || '',
+              maritalStatus: data.maritalStatus || data.marital_status || data.estado_civil || '',
+              cidade: data.city || data.cidade || '',
+              endereco: data.street || data.endereco || '',
+              numero: data.number || data.numero || '',
+              bairro: data.neighborhood || data.bairro || '',
+              uf: data.uf || '',
+              cep: data.cep || '',
+              complemento: data.complement || data.complemento || '',
+            });
+          }
         } else {
           setPersonalData(null);
         }
@@ -83,18 +97,43 @@ const Menu = ({ onNavigate }) => {
   }, []);
 
   return (
-    <Box sx={{ background: 'linear-gradient(135deg, #0033ff 0%, #0033ff 100%)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', py: 4, minHeight: 'auto' }}>
-      <Box sx={{ background: '#fff', borderRadius: 3, boxShadow: 4, width: '80vw', maxWidth: 700, minHeight: 500, p: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+    <Box sx={{
+      background: 'linear-gradient(135deg, #0033ff 0%, #0033ff 100%)',
+      width: '100vw',
+      minHeight: '100vh',
+      left: 0,
+      top: 0,
+      zIndex: 0,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      py: 4,
+    }}>
+      <Box sx={{
+        background: '#fff',
+        borderRadius: 3,
+        boxShadow: 4,
+        width: '80vw',
+        maxWidth: 700,
+        minHeight: 500,
+        p: 0,
+        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-start', // Corrige centralização
+        alignItems: 'stretch', // Garante alinhamento à esquerda
+      }}>
         <Box sx={{ background: '#0033ff', py: 3, px: 2, textAlign: 'center' }}>
           <Typography variant="h6" sx={{ color: '#fff', fontWeight: 'bold', letterSpacing: 1, mb: 0 }}>
              <span style={{ fontWeight: 700, fontSize: 22 }}>Bem Vindo a Essencial</span>
           </Typography>
         </Box>
         <Box sx={{ p: 4, display: 'flex', flexDirection: 'column', gap: 4 }}>
-          <Typography variant="body2" sx={{ color: '#333', mb: 2 }}>
-            Aqui você pode editar seus dados pessoais, solicitar empréstimos e sair da sua conta com segurança.
+          <Typography variant="body2" sx={{ color: '#333', mb: 2, textAlign: 'left' }}>
+            Aqui você pode editar seus dados pessoai e solicitar um novo empréstimos com segurança.
           </Typography>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, flex: 1 }}>
             <Button
               color="primary"
               variant="outlined"
@@ -103,16 +142,37 @@ const Menu = ({ onNavigate }) => {
                 setShowPersonalDataWarning(false);
                 onNavigate('dadosPessoais');
               }}
-              sx={{ justifyContent: 'flex-start', width: '100%', fontWeight: 'bold', borderRadius: 2, fontSize: 16, background: '#fff', borderColor: '#0033ff', color: '#0033ff', '&:hover': { background: '#e6eaff', borderColor: '#0022aa', color: '#0022aa' } }}
+              sx={{
+                minHeight: '48px',
+                px: 3,
+                borderRadius: '12px',
+                fontSize: 16,
+                fontWeight: 'bold',
+                width: { xs: '100%', sm: '100%' },
+                boxSizing: 'border-box',
+                justifyContent: 'flex-start',
+                background: '#fff',
+                borderColor: '#0033ff',
+                color: '#0033ff',
+                touchAction: 'manipulation',
+                textTransform: 'none', // Remove caixa alta
+                '@media (hover: hover)': {
+                  '&:hover': {
+                    background: '#e6eaff',
+                    borderColor: '#0022aa',
+                    color: '#0022aa',
+                  },
+                },
+              }}
             >
-              Editar Dados Pessoais
+              Meus Dados
             </Button>
             {showPersonalDataWarning && !loading && (!personalData || !isPersonalDataComplete(personalData)) && (
               <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', background: '#fff3e0', border: '1.5px solid #ffa726', borderRadius: 2, p: 1.2, mb: 1, ml: 0.5, width: 'fit-content', maxWidth: '90%' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                   <ReportProblemIcon sx={{ color: '#ff9800', fontSize: 22, mr: 1 }} />
                   <Typography variant="subtitle2" color="#b26a00" sx={{ fontWeight: 500 }}>
-                    Para solicitar empréstimo, clique primeiro em <b>Editar Dados Pessoais</b> e preencha todos os campos obrigatórios.
+                    Para solicitar empréstimo, clique primeiro em <b>Meus Dados</b> e preencha todos os campos obrigatórios.
                   </Typography>
                 </Box>
                 {personalData && getMissingFields(personalData).length > 0 && (
@@ -131,20 +191,59 @@ const Menu = ({ onNavigate }) => {
             )}
             <Button
               color="primary"
-              variant="outlined"
+              variant="contained"
               startIcon={<AttachMoneyIcon />}
               onClick={handleLoanClick}
               disabled={loading}
-              sx={{ justifyContent: 'flex-start', width: '100%', fontWeight: 'bold', borderRadius: 2, fontSize: 16, background: '#fff', borderColor: '#0033ff', color: '#0033ff', opacity: loading ? 0.5 : 1, '&:hover': { background: '#e6eaff', borderColor: '#0022aa', color: '#0022aa' } }}
+              sx={{
+                minHeight: '48px',
+                px: 3,
+                borderRadius: '12px',
+                fontSize: 16,
+                fontWeight: 'bold',
+                width: { xs: '100%', sm: '100%' },
+                boxSizing: 'border-box',
+                justifyContent: 'flex-start',
+                background: '#0033ff',
+                color: '#fff',
+                opacity: loading ? 0.5 : 1,
+                touchAction: 'manipulation',
+                textTransform: 'none',
+                '&:hover': {
+                  background: '#0022aa',
+                  color: '#fff',
+                },
+              }}
             >
-              Solicitar Empréstimo
+              Novo Empréstimo
             </Button>
             <Button
               color="primary"
               variant="outlined"
               startIcon={<LogoutIcon />}
               onClick={handleLogout}
-              sx={{ justifyContent: 'flex-start', width: '100%', fontWeight: 'bold', borderRadius: 2, fontSize: 16, background: '#fff', borderColor: '#0033ff', color: '#0033ff', '&:hover': { background: '#e6eaff', borderColor: '#0022aa', color: '#0022aa' } }}
+              sx={{
+                minHeight: '48px',
+                px: 3,
+                borderRadius: '12px',
+                fontSize: 16,
+                fontWeight: 'bold',
+                width: { xs: '100%', sm: '100%' },
+                boxSizing: 'border-box',
+                justifyContent: 'flex-start',
+                background: '#fff',
+                borderColor: '#e0e0e0',
+                color: '#888',
+                mt: 6,
+                alignSelf: 'flex-end',
+                touchAction: 'manipulation',
+                textTransform: 'none',
+                '&:hover': {
+                  background: '#f5f5f5',
+                  borderColor: '#bdbdbd',
+                  color: '#b71c1c',
+                },
+              }}
             >
               Sair da Conta
             </Button>

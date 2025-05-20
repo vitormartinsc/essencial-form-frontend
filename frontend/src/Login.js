@@ -38,14 +38,16 @@ function Login() {
   return (
     <Container maxWidth="sm">
       <Box sx={{ mt: 5, p: 3, boxShadow: 3, borderRadius: 2 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          Login
+        <Typography variant="h4" component="h1" gutterBottom sx={{ color: '#0056FF', fontWeight: 700, textAlign: 'center', mb: 1 }}>
+          Bem-vindo de volta!
         </Typography>
-        <Typography variant="h6" component="h2" gutterBottom>
-          Preencha seus dados
+        <Typography variant="h6" component="h2" gutterBottom sx={{ color: '#0033ff', fontWeight: 500, textAlign: 'center', mb: 2, fontSize: 20 }}>
+          Acesse sua conta para solicitar seu empréstimo de forma rápida e segura.
         </Typography>
-        <Alert severity="warning" sx={{ mt: 2 }}>
-          É necessário possuir um cartão de crédito para realizar o empréstimo.
+        <Alert severity="info" sx={{ mt: 2, mb: 2, background: '#e3f2fd', color: '#0056FF', border: '1px solid #b6d4fe', fontWeight: 500, justifyContent: 'center', alignItems: 'center', textAlign: 'center', boxShadow: '0 2px 8px 0 rgba(0,0,0,0.04)' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
+            <span>É necessário possuir um cartão de crédito válido para realizar o empréstimo.</span>
+          </Box>
         </Alert>
         <form onSubmit={handleLogin}>
           <TextField
@@ -55,7 +57,25 @@ function Login() {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            InputLabelProps={{ sx: { backgroundColor: '#fff' } }}
+            InputLabelProps={{
+              sx: { backgroundColor: '#fff', fontSize: 17, fontWeight: 500, color: '#0056FF', top: 0 },
+              shrink: true
+            }}
+            inputProps={{ style: { height: 28, padding: '16.5px 14px', fontSize: 17 } }}
+            sx={{
+              mt: 2,
+              mb: 1,
+              '& .MuiInputBase-root': {
+                height: 56,
+                borderRadius: 2,
+                fontSize: 17,
+              },
+              '& .MuiInputLabel-root': {
+                top: 0,
+                left: 0,
+                transform: 'none',
+              },
+            }}
           />
           <TextField
             fullWidth
@@ -65,7 +85,25 @@ function Login() {
             type="password"
             value={formData.password}
             onChange={handleChange}
-            InputLabelProps={{ sx: { backgroundColor: '#fff' } }}
+            InputLabelProps={{
+              sx: { backgroundColor: '#fff', fontSize: 17, fontWeight: 500, color: '#0056FF', top: 0 },
+              shrink: true
+            }}
+            inputProps={{ style: { height: 28, padding: '16.5px 14px', fontSize: 17 } }}
+            sx={{
+              mt: 2,
+              mb: 1,
+              '& .MuiInputBase-root': {
+                height: 56,
+                borderRadius: 2,
+                fontSize: 17,
+              },
+              '& .MuiInputLabel-root': {
+                top: 0,
+                left: 0,
+                transform: 'none',
+              },
+            }}
           />
           <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 1 }}>
             <Link href="#" underline="hover" sx={{ fontSize: 14 }} onClick={() => alert('Funcionalidade de recuperação de senha em breve!')}>
@@ -77,7 +115,7 @@ function Login() {
             variant="contained"
             color="primary"
             type="submit"
-            sx={{ mt: 2 }}
+            sx={{ mt: 2, backgroundColor: '#0033ff', color: '#fff', fontWeight: 'bold', borderRadius: 2, height: '48px', boxShadow: 'none', textTransform: 'none', fontSize: 18, '&:hover': { backgroundColor: '#0022aa' } }}
           >
             Continuar
           </Button>

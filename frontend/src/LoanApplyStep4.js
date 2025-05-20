@@ -116,7 +116,24 @@ const LoanApplyStep4 = ({ formData, setFormData, showValidationErrors, errors = 
             <Button
               variant="contained"
               component="label"
-              sx={{ backgroundColor: '#0056FF', color: '#fff', fontWeight: 'bold', textTransform: 'none', borderRadius: '8px', '&:hover': { backgroundColor: '#003f8a' } }}
+              sx={{
+                backgroundColor: '#0056FF',
+                color: '#fff',
+                fontWeight: 'bold',
+                textTransform: 'none',
+                borderRadius: '8px',
+                minWidth: 140,
+                height: 36,
+                px: 2,
+                py: 0,
+                whiteSpace: 'nowrap',
+                display: 'flex',
+                alignSelf: 'center',
+                justifyContent: 'center',
+                mb: 1,
+                fontSize: 15,
+                '&:hover': { backgroundColor: '#003f8a' },
+              }}
             >
               Enviar arquivo
               <input type="file" accept="image/png, image/jpeg, image/jpg, image/webp" hidden onChange={e => {
@@ -168,7 +185,7 @@ const LoanApplyStep4 = ({ formData, setFormData, showValidationErrors, errors = 
               style={{ width: '60px', height: 'auto', marginBottom: '18px', marginTop: '2px' }}
             />
             {!virtualLimit ? (
-              <Button variant="contained" component="label" sx={{ backgroundColor: '#0056FF', color: '#fff', fontWeight: 'bold', textTransform: 'none', borderRadius: '8px', '&:hover': { backgroundColor: '#003f8a' } }}>
+              <Button variant="contained" component="label" sx={{ backgroundColor: '#0056FF', color: '#fff', fontWeight: 'bold', textTransform: 'none', borderRadius: '8px', minWidth: 140, height: 36, px: 2, py: 0, whiteSpace: 'nowrap', display: 'flex', alignSelf: 'center', justifyContent: 'center', mb: 1, '&:hover': { backgroundColor: '#003f8a' } }}>
                 Enviar arquivo
                 <input type="file" accept="image/png, image/jpeg, image/jpg, image/webp" hidden onChange={e => {
                   const file = e.target.files[0];
@@ -227,7 +244,7 @@ const LoanApplyStep4 = ({ formData, setFormData, showValidationErrors, errors = 
                 style={{ width: '60px', height: 'auto', marginBottom: '18px', marginTop: '2px' }}
               />
               {!cardFront ? (
-                <Button variant="contained" component="label" sx={{ backgroundColor: '#0056FF', color: '#fff', fontWeight: 'bold', textTransform: 'none', borderRadius: '8px', '&:hover': { backgroundColor: '#003f8a' } }}>
+                <Button variant="contained" component="label" sx={{ backgroundColor: '#0056FF', color: '#fff', fontWeight: 'bold', textTransform: 'none', borderRadius: '8px', minWidth: 140, height: 36, px: 2, py: 0, whiteSpace: 'nowrap', display: 'flex', alignSelf: 'center', justifyContent: 'center', mb: 1, '&:hover': { backgroundColor: '#003f8a' } }}>
                   Enviar arquivo
                   <input type="file" accept="image/png, image/jpeg, image/jpg, image/webp" hidden onChange={e => {
                     const file = e.target.files[0];
@@ -276,7 +293,7 @@ const LoanApplyStep4 = ({ formData, setFormData, showValidationErrors, errors = 
                 style={{ width: '60px', height: 'auto', marginBottom: '18px', marginTop: '2px' }}
               />
               {!cardBack ? (
-                <Button variant="contained" component="label" sx={{ backgroundColor: '#0056FF', color: '#fff', fontWeight: 'bold', textTransform: 'none', borderRadius: '8px', '&:hover': { backgroundColor: '#003f8a' } }}>
+                <Button variant="contained" component="label" sx={{ backgroundColor: '#0056FF', color: '#fff', fontWeight: 'bold', textTransform: 'none', borderRadius: '8px', minWidth: 140, height: 36, px: 2, py: 0, whiteSpace: 'nowrap', display: 'flex', alignSelf: 'center', justifyContent: 'center', mb: 1, '&:hover': { backgroundColor: '#003f8a' } }}>
                   Enviar arquivo
                   <input type="file" accept="image/png, image/jpeg, image/jpg, image/webp" hidden onChange={e => {
                     const file = e.target.files[0];
@@ -330,7 +347,7 @@ const LoanApplyStep4 = ({ formData, setFormData, showValidationErrors, errors = 
                 style={{ width: '60px', height: 'auto', marginBottom: '18px', marginTop: '2px' }}
               />
               {!cardLimit ? (
-                <Button variant="contained" component="label" sx={{ backgroundColor: '#0056FF', color: '#fff', fontWeight: 'bold', textTransform: 'none', borderRadius: '8px', '&:hover': { backgroundColor: '#003f8a' } }}>
+                <Button variant="contained" component="label" sx={{ backgroundColor: '#0056FF', color: '#fff', fontWeight: 'bold', textTransform: 'none', borderRadius: '8px', minWidth: 140, height: 36, px: 2, py: 0, whiteSpace: 'nowrap', display: 'flex', alignSelf: 'center', justifyContent: 'center', mb: 1, '&:hover': { backgroundColor: '#003f8a' } }}>
                   Enviar arquivo
                   <input type="file" accept="image/png, image/jpeg, image/jpg, image/webp" hidden onChange={e => {
                     const file = e.target.files[0];

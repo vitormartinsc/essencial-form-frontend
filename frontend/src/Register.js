@@ -115,8 +115,25 @@ function Register() {
             onChange={handleChange}
             error={!!errors.fullName}
             helperText={errors.fullName}
-            InputLabelProps={{ sx: { backgroundColor: '#fff' } }}
-
+            InputLabelProps={{
+              sx: { backgroundColor: '#fff', fontSize: 17, fontWeight: 500, color: '#0056FF', top: 0 },
+              shrink: true
+            }}
+            inputProps={{ style: { height: 28, padding: '16.5px 14px', fontSize: 17 } }}
+            sx={{
+              mt: 2,
+              mb: 1,
+              '& .MuiInputBase-root': {
+                height: 56,
+                borderRadius: 2,
+                fontSize: 17,
+              },
+              '& .MuiInputLabel-root': {
+                top: 0,
+                left: 0,
+                transform: 'none',
+              },
+            }}
           />
           <TextField
             fullWidth
@@ -128,7 +145,25 @@ function Register() {
             onChange={handleChange}
             error={!!errors.email}
             helperText={errors.email}
-            InputLabelProps={{ sx: { backgroundColor: '#fff' } }}
+            InputLabelProps={{
+              sx: { backgroundColor: '#fff', fontSize: 17, fontWeight: 500, color: '#0056FF', top: 0 },
+              shrink: true
+            }}
+            inputProps={{ style: { height: 28, padding: '16.5px 14px', fontSize: 17 } }}
+            sx={{
+              mt: 2,
+              mb: 1,
+              '& .MuiInputBase-root': {
+                height: 56,
+                borderRadius: 2,
+                fontSize: 17,
+              },
+              '& .MuiInputLabel-root': {
+                top: 0,
+                left: 0,
+                transform: 'none',
+              },
+            }}
           />
           <TextField
             fullWidth
@@ -139,8 +174,25 @@ function Register() {
             onChange={handleChange}
             error={!!errors.phone}
             helperText={errors.phone || 'Formato: (99) 99999-9999'}
-            inputProps={{ maxLength: 15 }}
-            InputLabelProps={{ sx: { backgroundColor: '#fff' } }}
+            inputProps={{ maxLength: 15, style: { height: 28, padding: '16.5px 14px', fontSize: 17 } }}
+            InputLabelProps={{
+              sx: { backgroundColor: '#fff', fontSize: 17, fontWeight: 500, color: '#0056FF', top: 0 },
+              shrink: true
+            }}
+            sx={{
+              mt: 2,
+              mb: 1,
+              '& .MuiInputBase-root': {
+                height: 56,
+                borderRadius: 2,
+                fontSize: 17,
+              },
+              '& .MuiInputLabel-root': {
+                top: 0,
+                left: 0,
+                transform: 'none',
+              },
+            }}
           />
           <TextField
             fullWidth
@@ -152,7 +204,25 @@ function Register() {
             onChange={handleChange}
             error={!!errors.password}
             helperText={errors.password || 'Mínimo 8 caracteres'}
-            InputLabelProps={{ sx: { backgroundColor: '#fff' } }}
+            InputLabelProps={{
+              sx: { backgroundColor: '#fff', fontSize: 17, fontWeight: 500, color: '#0056FF', top: 0 },
+              shrink: true
+            }}
+            inputProps={{ style: { height: 28, padding: '16.5px 14px', fontSize: 17 } }}
+            sx={{
+              mt: 2,
+              mb: 1,
+              '& .MuiInputBase-root': {
+                height: 56,
+                borderRadius: 2,
+                fontSize: 17,
+              },
+              '& .MuiInputLabel-root': {
+                top: 0,
+                left: 0,
+                transform: 'none',
+              },
+            }}
           />
           <TextField
             fullWidth
@@ -164,14 +234,32 @@ function Register() {
             onChange={handleChange}
             error={!!errors.confirmPassword}
             helperText={errors.confirmPassword}
-            InputLabelProps={{ sx: { backgroundColor: '#fff' } }}
+            InputLabelProps={{
+              sx: { backgroundColor: '#fff', fontSize: 17, fontWeight: 500, color: '#0056FF', top: 0 },
+              shrink: true
+            }}
+            inputProps={{ style: { height: 28, padding: '16.5px 14px', fontSize: 17 } }}
+            sx={{
+              mt: 2,
+              mb: 1,
+              '& .MuiInputBase-root': {
+                height: 56,
+                borderRadius: 2,
+                fontSize: 17,
+              },
+              '& .MuiInputLabel-root': {
+                top: 0,
+                left: 0,
+                transform: 'none',
+              },
+            }}
           />
           <Button
             fullWidth
             variant="contained"
             color="primary"
             type="submit"
-            sx={{ mt: 2, width: '320px', height: '48px', alignSelf: 'center' }}
+            sx={{ mt: 2, backgroundColor: '#0033ff', color: '#fff', fontWeight: 'bold', borderRadius: 2, height: '48px', boxShadow: 'none', textTransform: 'none', fontSize: 18, alignSelf: 'center', '&:hover': { backgroundColor: '#0022aa' } }}
           >
             Continuar
           </Button>

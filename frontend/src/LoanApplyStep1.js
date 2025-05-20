@@ -43,6 +43,27 @@ const LoanApplyStep1 = ({ formData, setFormData, loanAmountError, setLoanAmountE
     }));
   }, [formData.loanAmount, formData.installments, setFormData]);
 
+  // Funções de máscara para cada tipo de chave PIX
+  function maskPixKey(value, type) {
+    if (type === 'cpf') {
+      // Remove tudo que não é número e limita a 11 dígitos
+      let v = value.replace(/\D/g, '').slice(0, 11);
+      v = v.replace(/(\d{3})(\d)/, '$1.$2');
+      v = v.replace(/(\d{3})(\d)/, '$1.$2');
+      v = v.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+      return v;
+    }
+    if (type === 'phone') {
+      // Remove tudo que não é número e limita a 11 dígitos
+      let v = value.replace(/\D/g, '').slice(0, 11);
+      v = v.replace(/(\d{2})(\d)/, '($1) $2');
+      v = v.replace(/(\d{5})(\d{1,4})$/, '$1-$2');
+      return v;
+    }
+    // E-mail e aleatória: sem máscara
+    return value;
+  }
+
   return (
     <Container maxWidth="sm" sx={{ mt: 4, backgroundColor: '#f9f9f9', borderRadius: '10px', padding: '20px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
       <Typography
@@ -107,6 +128,52 @@ const LoanApplyStep1 = ({ formData, setFormData, loanAmountError, setLoanAmountE
           <MenuItem key={i + 1} value={i + 1}>{`${i + 1}x`}</MenuItem>
         ))}
       </TextField>
+      <TextField
+        select
+        fullWidth
+        label="Tipo de chave PIX"
+        name="pixKeyType"
+        value={formData.pixKeyType || ''}
+        onChange={e => setFormData(prev => ({ ...prev, pixKeyType: e.target.value, pixKey: '' }))}
+        margin="normal"
+        helperText="Selecione o tipo de chave PIX para receber o valor"
+        InputLabelProps={{ sx: { backgroundColor: '#fff' } }}
+        sx={{
+          backgroundColor: '#fff',
+          borderRadius: '5px',
+          boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
+        }}
+      >
+        <MenuItem value="cpf">CPF</MenuItem>
+        <MenuItem value="phone">Telefone</MenuItem>
+        <MenuItem value="email">E-mail</MenuItem>
+        <MenuItem value="random">Chave aleatória</MenuItem>
+      </TextField>
+      {formData.pixKeyType && (
+        <TextField
+          key={formData.pixKeyType}
+          fullWidth
+          label={`Chave PIX (${formData.pixKeyType === 'cpf' ? 'CPF' : formData.pixKeyType === 'phone' ? 'Telefone' : formData.pixKeyType === 'email' ? 'E-mail' : 'Aleatória'})`}
+          name="pixKey"
+          value={formData.pixKey || ''}
+          onChange={e => setFormData(prev => ({ ...prev, pixKey: maskPixKey(e.target.value, formData.pixKeyType) }))}
+          error={!!errors.pixKey}
+          helperText={
+            errors.pixKey ||
+            (formData.pixKeyType === 'cpf' ? 'Digite o CPF cadastrado como chave PIX'
+            : formData.pixKeyType === 'phone' ? 'Digite o telefone com DDD (apenas números)'
+            : formData.pixKeyType === 'email' ? 'Digite o e-mail cadastrado como chave PIX'
+            : 'Cole ou digite a chave aleatória')
+          }
+          InputLabelProps={{ sx: { backgroundColor: '#fff' } }}
+          sx={{
+            mt: 2,
+            backgroundColor: '#fff',
+            borderRadius: '5px',
+            boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
+          }}
+        />
+      )}
       <Box
         sx={{
           display: 'flex',

@@ -50,6 +50,7 @@ const Step3 = ({ formData, handleChange, handleCheckboxChange, onBack, onSubmit,
         helperText={errors.limiteDisponivel}
         sx={{ flex: '1 1 45%' }}
         InputLabelProps={{ sx: { backgroundColor: '#fff' } }}
+        inputProps={{ style: { height: 48, boxSizing: 'border-box', padding: '0 14px' } }}
       />
       <TextField
         fullWidth
@@ -61,6 +62,7 @@ const Step3 = ({ formData, handleChange, handleCheckboxChange, onBack, onSubmit,
         helperText={errors.valorEmprestimo}
         sx={{ flex: '1 1 45%' }}
         InputLabelProps={{ sx: { backgroundColor: '#fff' } }}
+        inputProps={{ style: { height: 48, boxSizing: 'border-box', padding: '0 14px' } }}
       />
       <Select
         fullWidth
@@ -119,11 +121,15 @@ const Step3 = ({ formData, handleChange, handleCheckboxChange, onBack, onSubmit,
           boxShadow: 4,
           background: '#0033ff',
           color: '#fff',
-          fontSize: 18,
+          fontSize: 15,
           textTransform: 'none',
           px: 4,
-          py: 1.5,
+          py: 1,
           letterSpacing: 1,
+          minWidth: 140,
+          height: 36,
+          display: 'block',
+          alignSelf: 'center',
           '&:hover': {
             background: '#0022aa',
             boxShadow: 6,

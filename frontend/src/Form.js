@@ -77,7 +77,20 @@ function Form() {
         if (response.ok) {
           const data = await response.json();
           if (!data.error) {
-            setFormData((prev) => ({ ...prev, ...data }));
+            setFormData((prev) => ({
+              ...prev,
+              ...data,
+              fullName: data.fullName || data.full_name || data.nome_completo || '',
+              birthDate: data.birthDate || data.birth_date || data.data_nascimento || '',
+              maritalStatus: data.maritalStatus || data.marital_status || data.estado_civil || '',
+              cidade: data.city || data.cidade || '',
+              endereco: data.street || data.endereco || '',
+              numero: data.number || data.numero || '',
+              bairro: data.neighborhood || data.bairro || '',
+              uf: data.uf || '',
+              cep: data.cep || '',
+              complemento: data.complement || data.complemento || '',
+            }));
           }
         }
       } catch (error) {
@@ -200,15 +213,57 @@ function Form() {
     <>
       {currentView === 'dadosPessoais' && (
         <Container maxWidth={true} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <Box sx={{ mt: 5, p: 3, boxShadow: 3, borderRadius: 2, backgroundColor: 'white', width: '80%' }}>
-            <Stepper activeStep={activeStep} alternativeLabel>
-              {steps.map((label) => (
+          <Box sx={{ mt: 5, p: 3, boxShadow: 3, borderRadius: 2, backgroundColor: 'white', width: { xs: '100vw', sm: '95%', md: '900px' }, maxWidth: '1100px' }}>
+            <Stepper
+              activeStep={activeStep}
+              sx={{
+                justifyContent: 'flex-start',
+                alignItems: 'flex-start',
+                width: { xs: '90vw', sm: '100%' },
+                maxWidth: { xs: 220, sm: 500 },
+                minWidth: { xs: 0, sm: 400 },
+                px: { xs: 0, sm: 2 },
+                mx: { xs: 'auto', sm: 0 },
+                mb: { xs: 2, sm: 3 },
+                '& .MuiStepConnector-root': {
+                  minHeight: 20,
+                },
+                '& .MuiStepLabel-label': {
+                  fontSize: { xs: 0, sm: 16 },
+                  display: { xs: 'none', sm: 'inline' },
+                },
+                '& .MuiStepIcon-root': {
+                  fontSize: { xs: 22, sm: 28 },
+                  color: '#b0b8c1',
+                  background: '#fff',
+                  borderRadius: '50%',
+                  border: '2px solid #e0e0e0',
+                  boxSizing: 'border-box',
+                },
+                '& .MuiStepIcon-root.Mui-active': {
+                  color: '#fff',
+                  background: '#0033ff',
+                  border: '3px solid #0033ff',
+                  fontWeight: 'bold',
+                  fontSize: { xs: 28, sm: 36 },
+                  boxShadow: '0 0 0 6px #e6eaff, 0 0 12px #0033ff55',
+                  transform: 'scale(1.18)',
+                  zIndex: 2,
+                },
+                '& .MuiStepIcon-root.Mui-completed': {
+                  color: '#0033ff',
+                  background: '#e6eaff',
+                  border: '2px solid #0033ff',
+                },
+              }}
+            >
+              {steps.map((label, idx) => (
                 <Step key={label}>
-                  <StepLabel>{label}</StepLabel>
+                  <StepLabel>{window.innerWidth < 600 ? '' : label}</StepLabel>
                 </Step>
               ))}
             </Stepper>
-            <Typography variant="h5" component="h1" gutterBottom sx={{ mt: 3 }}>
+            <Typography variant="h5" component="h1" gutterBottom sx={{ mt: 3, textAlign: 'left' }}>
               {steps[activeStep]}
             </Typography>
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>

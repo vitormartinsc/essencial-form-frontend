@@ -73,16 +73,16 @@ const LoanApplyStep3 = ({ formData, setFormData, showValidationErrors, errors = 
       </RadioGroup>
 
       {formData.documentType === 'RG' || documentType === 'RG' ? (
-        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 4, mb: 2, alignItems: 'center' }}>
-          <Box sx={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#e3f2fd', padding: '15px', borderRadius: '10px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mb: 2, alignItems: 'flex-start' }}>
+          <Box sx={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#e3f2fd', padding: '10px 10px 12px 10px', borderRadius: '10px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', minWidth: 0, width: 150, minHeight: 0, height: 'auto' }}>
             <Typography variant="body2" sx={{ mb: 1, color: '#0056FF', fontWeight: 'bold' }}>Foto da frente da Identidade</Typography>
             <img
               src={idFrente}
               alt="Foto do RG (Frente)"
-              style={{ width: '60px', height: 'auto', marginBottom: '18px', marginTop: '2px' }}
+              style={{ width: '48px', height: 'auto', marginBottom: '10px', marginTop: '2px' }}
             />
             {!documentFront ? (
-              <Button variant="contained" component="label" sx={{ backgroundColor: '#0056FF', color: '#fff', fontWeight: 'bold', textTransform: 'none', borderRadius: '8px', '&:hover': { backgroundColor: '#003f8a' } }}>
+              <Button variant="contained" component="label" sx={{ backgroundColor: '#0056FF', color: '#fff', fontWeight: 'bold', textTransform: 'none', borderRadius: '8px', minWidth: 100, height: 36, px: 2, py: 0, fontSize: 15, whiteSpace: 'nowrap', display: 'flex', alignSelf: 'center', justifyContent: 'center', mb: 1, '&:hover': { backgroundColor: '#003f8a' } }}>
                 Enviar arquivo
                 <input type="file" accept="image/png, image/jpeg, image/jpg, image/webp" hidden onChange={e => {
                   const file = e.target.files[0];
@@ -94,7 +94,7 @@ const LoanApplyStep3 = ({ formData, setFormData, showValidationErrors, errors = 
                 }} />
               </Button>
             ) : (
-              <Box sx={{ mt: 1, display: 'flex', alignItems: 'center', gap: 2, background: '#f5f7fa', borderRadius: '6px', px: 2, py: 0.5, width: '100%' }}>
+              <Box sx={{ mt: 1, display: 'flex', alignItems: 'center', gap: 1, background: '#f5f7fa', borderRadius: '6px', px: 1, py: 0.5, width: '100%' }}>
                 <a
                   href={URL.createObjectURL(documentFront)}
                   target="_blank"
@@ -103,7 +103,7 @@ const LoanApplyStep3 = ({ formData, setFormData, showValidationErrors, errors = 
                     fontFamily: 'Inter, Roboto, Arial, sans-serif',
                     color: '#0056FF',
                     fontWeight: 500,
-                    fontSize: 15,
+                    fontSize: 14,
                     letterSpacing: 0.2,
                     textDecoration: 'underline',
                     cursor: 'pointer',
@@ -114,7 +114,7 @@ const LoanApplyStep3 = ({ formData, setFormData, showValidationErrors, errors = 
                   {documentFront.name}
                 </a>
                 <CloseIcon
-                  sx={{ cursor: 'pointer', color: '#b71c1c', fontSize: 20, ml: 0.5 }}
+                  sx={{ cursor: 'pointer', color: '#b71c1c', fontSize: 18, ml: 0.5 }}
                   onClick={() => setDocumentFront(null)}
                 />
               </Box>
@@ -123,15 +123,15 @@ const LoanApplyStep3 = ({ formData, setFormData, showValidationErrors, errors = 
               <Typography variant="caption" color="error" sx={{ mt: 1, mb: 1, display: 'block' }}>{errors.documentFront}</Typography>
             )}
           </Box>
-          <Box sx={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#e3f2fd', padding: '15px', borderRadius: '10px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}>
+          <Box sx={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#e3f2fd', padding: '10px 10px 12px 10px', borderRadius: '10px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', minWidth: 0, width: 150, minHeight: 0, height: 'auto' }}>
             <Typography variant="body2" sx={{ mb: 1, color: '#0056FF', fontWeight: 'bold' }}>Foto do verso da Identidade</Typography>
             <img
               src={idVerso}
               alt="Foto do RG (Verso)"
-              style={{ width: '60px', height: 'auto', marginBottom: '18px', marginTop: '2px' }}
+              style={{ width: '48px', height: 'auto', marginBottom: '10px', marginTop: '2px' }}
             />
             {!documentBack ? (
-              <Button variant="contained" component="label" sx={{ backgroundColor: '#0056FF', color: '#fff', fontWeight: 'bold', textTransform: 'none', borderRadius: '8px', '&:hover': { backgroundColor: '#003f8a' } }}>
+              <Button variant="contained" component="label" sx={{ backgroundColor: '#0056FF', color: '#fff', fontWeight: 'bold', textTransform: 'none', borderRadius: '8px', minWidth: 100, height: 36, px: 2, py: 0, fontSize: 15, whiteSpace: 'nowrap', display: 'flex', alignSelf: 'center', justifyContent: 'center', mb: 1, '&:hover': { backgroundColor: '#003f8a' } }}>
                 Enviar arquivo
                 <input type="file" accept="image/png, image/jpeg, image/jpg, image/webp" hidden onChange={e => {
                   const file = e.target.files[0];
@@ -143,7 +143,7 @@ const LoanApplyStep3 = ({ formData, setFormData, showValidationErrors, errors = 
                 }} />
               </Button>
             ) : (
-              <Box sx={{ mt: 1, display: 'flex', alignItems: 'center', gap: 2, background: '#f5f7fa', borderRadius: '6px', px: 2, py: 0.5, width: '100%' }}>
+              <Box sx={{ mt: 1, display: 'flex', alignItems: 'center', gap: 1, background: '#f5f7fa', borderRadius: '6px', px: 1, py: 0.5, width: '100%' }}>
                 <a
                   href={URL.createObjectURL(documentBack)}
                   target="_blank"
@@ -152,7 +152,7 @@ const LoanApplyStep3 = ({ formData, setFormData, showValidationErrors, errors = 
                     fontFamily: 'Inter, Roboto, Arial, sans-serif',
                     color: '#0056FF',
                     fontWeight: 500,
-                    fontSize: 15,
+                    fontSize: 14,
                     letterSpacing: 0.2,
                     textDecoration: 'underline',
                     cursor: 'pointer',
@@ -163,7 +163,7 @@ const LoanApplyStep3 = ({ formData, setFormData, showValidationErrors, errors = 
                   {documentBack.name}
                 </a>
                 <CloseIcon
-                  sx={{ cursor: 'pointer', color: '#b71c1c', fontSize: 20, ml: 0.5 }}
+                  sx={{ cursor: 'pointer', color: '#b71c1c', fontSize: 18, ml: 0.5 }}
                   onClick={() => setDocumentBack(null)}
                 />
               </Box>
@@ -174,15 +174,15 @@ const LoanApplyStep3 = ({ formData, setFormData, showValidationErrors, errors = 
           </Box>
         </Box>
       ) : (
-        <Box sx={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 2, backgroundColor: '#e3f2fd', padding: '15px', borderRadius: '10px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}>
+        <Box sx={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 2, backgroundColor: '#e3f2fd', padding: '10px 10px 12px 10px', borderRadius: '10px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', minWidth: 0, width: 150, minHeight: 0, height: 'auto' }}>
           <Typography variant="body2" sx={{ mb: 1, color: '#0056FF', fontWeight: 'bold' }}>Foto da CNH</Typography>
           <img
             src={cnhImage}
             alt="Foto da CNH"
-            style={{ width: '60px', height: 'auto', marginBottom: '18px', marginTop: '2px' }}
+            style={{ width: '48px', height: 'auto', marginBottom: '10px', marginTop: '2px' }}
           />
           {!documentFront ? (
-            <Button variant="contained" component="label" sx={{ backgroundColor: '#0056FF', color: '#fff', fontWeight: 'bold', textTransform: 'none', borderRadius: '8px', '&:hover': { backgroundColor: '#003f8a' } }}>
+            <Button variant="contained" component="label" sx={{ backgroundColor: '#0056FF', color: '#fff', fontWeight: 'bold', textTransform: 'none', borderRadius: '8px', minWidth: 100, height: 36, px: 2, py: 0, fontSize: 15, whiteSpace: 'nowrap', display: 'flex', alignSelf: 'center', justifyContent: 'center', mb: 1, '&:hover': { backgroundColor: '#003f8a' } }}>
               Enviar arquivo
               <input type="file" accept="image/png, image/jpeg, image/jpg, image/webp" hidden onChange={e => {
                 const file = e.target.files[0];
@@ -194,7 +194,7 @@ const LoanApplyStep3 = ({ formData, setFormData, showValidationErrors, errors = 
               }} />
             </Button>
           ) : (
-            <Box sx={{ mt: 1, display: 'flex', alignItems: 'center', gap: 2, background: '#f5f7fa', borderRadius: '6px', px: 2, py: 0.5, width: '100%' }}>
+            <Box sx={{ mt: 1, display: 'flex', alignItems: 'center', gap: 1, background: '#f5f7fa', borderRadius: '6px', px: 1, py: 0.5, width: '100%' }}>
               <a
                 href={URL.createObjectURL(documentFront)}
                 target="_blank"
@@ -203,7 +203,7 @@ const LoanApplyStep3 = ({ formData, setFormData, showValidationErrors, errors = 
                   fontFamily: 'Inter, Roboto, Arial, sans-serif',
                   color: '#0056FF',
                   fontWeight: 500,
-                  fontSize: 15,
+                  fontSize: 14,
                   letterSpacing: 0.2,
                   textDecoration: 'underline',
                   cursor: 'pointer',
@@ -214,7 +214,7 @@ const LoanApplyStep3 = ({ formData, setFormData, showValidationErrors, errors = 
                 {documentFront.name}
               </a>
               <CloseIcon
-                sx={{ cursor: 'pointer', color: '#b71c1c', fontSize: 20, ml: 0.5 }}
+                sx={{ cursor: 'pointer', color: '#b71c1c', fontSize: 18, ml: 0.5 }}
                 onClick={() => setDocumentFront(null)}
               />
             </Box>

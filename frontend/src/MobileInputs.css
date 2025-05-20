@@ -14,13 +14,6 @@
     min-width: 0;
     box-sizing: border-box;
   }
-  button, .MuiButton-root {
-    min-height: 48px;
-    font-size: 1.1rem;
-    padding: 14px 0;
-    width: 100%;
-    box-sizing: border-box;
-  }
   form {
     gap: 14px;
     width: 100%;
@@ -48,9 +41,9 @@
     position: relative;
   }
   .App-header-ruler {
-    width: 120vw !important;
-    min-width: 120vw !important;
-    max-width: 120vw !important;
+    width: 100vw !important;
+    min-width: 100vw !important;
+    max-width: 100vw !important;
     height: 100px !important;
     display: block;
     margin: 0 !important;

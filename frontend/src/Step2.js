@@ -39,7 +39,7 @@ const Step2 = ({ formData, handleChange, handleCepChange, cepError, onNext, onBa
           setErrors((prev) => ({ ...prev, cep: '' }));
         }}
         placeholder="12345-678"
-        inputProps={{ maxLength: 10 }}
+        inputProps={{ maxLength: 10, style: { height: 48, boxSizing: 'border-box', padding: '0 14px' } }}
         error={!!errors.cep || !!cepError}
         helperText={errors.cep || cepError}
         InputLabelProps={{ sx: { backgroundColor: '#fff' } }}
@@ -56,6 +56,7 @@ const Step2 = ({ formData, handleChange, handleCepChange, cepError, onNext, onBa
         error={!!errors.uf}
         helperText={errors.uf}
         InputLabelProps={{ sx: { backgroundColor: '#fff' } }}
+        inputProps={{ style: { height: 48, boxSizing: 'border-box', padding: '0 14px' } }}
       />
       <TextField
         fullWidth
@@ -69,6 +70,7 @@ const Step2 = ({ formData, handleChange, handleCepChange, cepError, onNext, onBa
         error={!!errors.city}
         helperText={errors.city}
         InputLabelProps={{ sx: { backgroundColor: '#fff' } }}
+        inputProps={{ style: { height: 48, boxSizing: 'border-box', padding: '0 14px' } }}
       />
       <TextField
         fullWidth
@@ -82,6 +84,7 @@ const Step2 = ({ formData, handleChange, handleCepChange, cepError, onNext, onBa
         error={!!errors.neighborhood}
         helperText={errors.neighborhood}
         InputLabelProps={{ sx: { backgroundColor: '#fff' } }}
+        inputProps={{ style: { height: 48, boxSizing: 'border-box', padding: '0 14px' } }}
       />
       <TextField
         fullWidth
@@ -95,6 +98,7 @@ const Step2 = ({ formData, handleChange, handleCepChange, cepError, onNext, onBa
         error={!!errors.street}
         helperText={errors.street}
         InputLabelProps={{ sx: { backgroundColor: '#fff' } }}
+        inputProps={{ style: { height: 48, boxSizing: 'border-box', padding: '0 14px' } }}
       />
       <TextField
         fullWidth
@@ -108,6 +112,7 @@ const Step2 = ({ formData, handleChange, handleCepChange, cepError, onNext, onBa
         error={!!errors.number}
         helperText={errors.number}
         InputLabelProps={{ sx: { backgroundColor: '#fff' } }}
+        inputProps={{ style: { height: 48, boxSizing: 'border-box', padding: '0 14px' } }}
       />
       <Box sx={{ gridColumn: '1 / span 2', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', mt: 2 }}>
         <Button

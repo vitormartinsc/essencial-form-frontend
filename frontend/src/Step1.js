@@ -79,6 +79,7 @@ const Step1 = ({ formData, handleChange, onNext, onSave }) => {
         helperText={errors.fullName}
         sx={{ flex: '1 1 45%' }}
         InputLabelProps={{ sx: { backgroundColor: '#fff' } }}
+        inputProps={{ style: { height: 48, boxSizing: 'border-box', padding: '0 14px' } }}
       />
       <TextField
         fullWidth
@@ -93,6 +94,7 @@ const Step1 = ({ formData, handleChange, onNext, onSave }) => {
         helperText={errors.phone}
         sx={{ flex: '1 1 45%' }}
         InputLabelProps={{ sx: { backgroundColor: '#fff' } }}
+        inputProps={{ style: { height: 48, boxSizing: 'border-box', padding: '0 14px' } }}
       />
       <TextField
         fullWidth
@@ -107,6 +109,7 @@ const Step1 = ({ formData, handleChange, onNext, onSave }) => {
         helperText={errors.cpf}
         sx={{ flex: '1 1 45%' }}
         InputLabelProps={{ sx: { backgroundColor: '#fff' } }}
+        inputProps={{ style: { height: 48, boxSizing: 'border-box', padding: '0 14px' } }}
       />
       <TextField
         fullWidth
@@ -121,6 +124,7 @@ const Step1 = ({ formData, handleChange, onNext, onSave }) => {
         helperText={errors.rg}
         sx={{ flex: '1 1 45%' }}
         InputLabelProps={{ sx: { backgroundColor: '#fff' } }}
+        inputProps={{ style: { height: 48, boxSizing: 'border-box', padding: '0 14px' } }}
       />
       <TextField
         fullWidth
@@ -135,6 +139,7 @@ const Step1 = ({ formData, handleChange, onNext, onSave }) => {
         helperText={errors.email}
         sx={{ flex: '1 1 45%' }}
         InputLabelProps={{ sx: { backgroundColor: '#fff' } }}
+        inputProps={{ style: { height: 48, boxSizing: 'border-box', padding: '0 14px' } }}
       />
       <TextField
         fullWidth
@@ -150,6 +155,7 @@ const Step1 = ({ formData, handleChange, onNext, onSave }) => {
         error={!!errors.birthDate}
         helperText={errors.birthDate}
         sx={{ flex: '1 1 45%' }}
+        inputProps={{ style: { height: 48, boxSizing: 'border-box', padding: '0 14px' } }}
       />
       <TextField
         fullWidth

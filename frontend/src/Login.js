@@ -41,9 +41,7 @@ function Login() {
         <Typography variant="h4" component="h1" gutterBottom sx={{ color: '#0056FF', fontWeight: 700, textAlign: 'center', mb: 1 }}>
           Bem-vindo de volta!
         </Typography>
-        <Typography variant="h6" component="h2" gutterBottom sx={{ color: '#0033ff', fontWeight: 500, textAlign: 'center', mb: 2, fontSize: 20 }}>
-          Acesse sua conta para solicitar seu empréstimo de forma rápida e segura.
-        </Typography>
+
         <Alert severity="info" sx={{ mt: 2, mb: 2, background: '#e3f2fd', color: '#0056FF', border: '1px solid #b6d4fe', fontWeight: 500, justifyContent: 'center', alignItems: 'center', textAlign: 'center', boxShadow: '0 2px 8px 0 rgba(0,0,0,0.04)' }}>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
             <span>É necessário possuir um cartão de crédito válido para realizar o empréstimo.</span>
@@ -58,10 +56,10 @@ function Login() {
             value={formData.email}
             onChange={handleChange}
             InputLabelProps={{
-              sx: { backgroundColor: '#fff', fontSize: 17, fontWeight: 500, color: '#0056FF', top: 0 },
-              shrink: true
+              sx: { backgroundColor: '#fff', fontSize: 17, fontWeight: 500, color: '#0056FF' },
+              shrink: undefined // permite o label flutuar normalmente
             }}
-            inputProps={{ style: { height: 28, padding: '16.5px 14px', fontSize: 17 } }}
+            inputProps={{ style: { height: 48, padding: '16.5px 14px', fontSize: 17 } }}
             sx={{
               mt: 2,
               mb: 1,
@@ -69,11 +67,6 @@ function Login() {
                 height: 56,
                 borderRadius: 2,
                 fontSize: 17,
-              },
-              '& .MuiInputLabel-root': {
-                top: 0,
-                left: 0,
-                transform: 'none',
               },
             }}
           />
@@ -86,10 +79,10 @@ function Login() {
             value={formData.password}
             onChange={handleChange}
             InputLabelProps={{
-              sx: { backgroundColor: '#fff', fontSize: 17, fontWeight: 500, color: '#0056FF', top: 0 },
-              shrink: true
+              sx: { backgroundColor: '#fff', fontSize: 17, fontWeight: 500, color: '#0056FF' },
+              shrink: undefined // permite o label flutuar normalmente
             }}
-            inputProps={{ style: { height: 28, padding: '16.5px 14px', fontSize: 17 } }}
+            inputProps={{ style: { height: 48, padding: '16.5px 14px', fontSize: 17 } }}
             sx={{
               mt: 2,
               mb: 1,
@@ -97,11 +90,6 @@ function Login() {
                 height: 56,
                 borderRadius: 2,
                 fontSize: 17,
-              },
-              '& .MuiInputLabel-root': {
-                top: 0,
-                left: 0,
-                transform: 'none',
               },
             }}
           />

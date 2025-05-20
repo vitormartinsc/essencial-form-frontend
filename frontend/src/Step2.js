@@ -7,8 +7,9 @@ const isStepValid = (formData) => {
   return requiredFields.every((field) => formData[field] && formData[field].toString().trim() !== '');
 };
 
-const Step2 = ({ formData, handleChange, handleCepChange, cepError, onNext, onBack, onSave }) => {
+const Step2 = ({ formData, handleChange, handleCepChange, onNext, onBack, onSave, setFormData }) => {
   const [errors, setErrors] = React.useState({});
+  const [cepError, setCepError] = React.useState('');
 
   const handleNextClick = async () => {
     const newErrors = {};
@@ -26,6 +27,42 @@ const Step2 = ({ formData, handleChange, handleCepChange, cepError, onNext, onBa
       onNext();
     }
   };
+
+  React.useEffect(() => {
+    if (formData.cep && formData.cep.length === 9) {
+      (async () => {
+        try {
+          const response = await fetch(`https://viacep.com.br/ws/${formData.cep.replace('-', '')}/json/`);
+          const data = await response.json();
+          if (data.erro) {
+            setCepError('CEP não encontrado.');
+          } else {
+            // Só atualiza se algum campo mudou para evitar loop
+            if (
+              formData.uf !== (data.uf || '') ||
+              formData.city !== (data.localidade || '') ||
+              formData.neighborhood !== (data.bairro || '') ||
+              formData.street !== (data.logradouro || '')
+            ) {
+              setCepError('');
+              setTimeout(() => {
+                setCepError('');
+                setFormData((prev) => ({
+                  ...prev,
+                  uf: data.uf || '',
+                  city: data.localidade || '',
+                  neighborhood: data.bairro || '',
+                  street: data.logradouro || '',
+                }));
+              }, 100);
+            }
+          }
+        } catch (error) {
+          setCepError('Erro ao buscar o CEP. Tente novamente.');
+        }
+      })();
+    }
+  }, [formData.cep]);
 
   return (
     <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>

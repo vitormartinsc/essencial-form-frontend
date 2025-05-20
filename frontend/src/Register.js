@@ -116,10 +116,10 @@ function Register() {
             error={!!errors.fullName}
             helperText={errors.fullName}
             InputLabelProps={{
-              sx: { backgroundColor: '#fff', fontSize: 17, fontWeight: 500, color: '#0056FF', top: 0 },
-              shrink: true
+              sx: { backgroundColor: '#fff', fontSize: 17, fontWeight: 500, color: '#0056FF' },
+              shrink: undefined // permite o label flutuar normalmente
             }}
-            inputProps={{ style: { height: 28, padding: '16.5px 14px', fontSize: 17 } }}
+            inputProps={{ style: { height: 48, padding: '16.5px 14px', fontSize: 17 } }}
             sx={{
               mt: 2,
               mb: 1,
@@ -127,11 +127,6 @@ function Register() {
                 height: 56,
                 borderRadius: 2,
                 fontSize: 17,
-              },
-              '& .MuiInputLabel-root': {
-                top: 0,
-                left: 0,
-                transform: 'none',
               },
             }}
           />
@@ -146,10 +141,10 @@ function Register() {
             error={!!errors.email}
             helperText={errors.email}
             InputLabelProps={{
-              sx: { backgroundColor: '#fff', fontSize: 17, fontWeight: 500, color: '#0056FF', top: 0 },
-              shrink: true
+              sx: { backgroundColor: '#fff', fontSize: 17, fontWeight: 500, color: '#0056FF' },
+              shrink: undefined // permite o label flutuar normalmente
             }}
-            inputProps={{ style: { height: 28, padding: '16.5px 14px', fontSize: 17 } }}
+            inputProps={{ style: { height: 48, padding: '16.5px 14px', fontSize: 17 } }}
             sx={{
               mt: 2,
               mb: 1,
@@ -157,11 +152,6 @@ function Register() {
                 height: 56,
                 borderRadius: 2,
                 fontSize: 17,
-              },
-              '& .MuiInputLabel-root': {
-                top: 0,
-                left: 0,
-                transform: 'none',
               },
             }}
           />
@@ -174,10 +164,10 @@ function Register() {
             onChange={handleChange}
             error={!!errors.phone}
             helperText={errors.phone || 'Formato: (99) 99999-9999'}
-            inputProps={{ maxLength: 15, style: { height: 28, padding: '16.5px 14px', fontSize: 17 } }}
+            inputProps={{ maxLength: 15, style: { height: 48, padding: '16.5px 14px', fontSize: 17 } }}
             InputLabelProps={{
-              sx: { backgroundColor: '#fff', fontSize: 17, fontWeight: 500, color: '#0056FF', top: 0 },
-              shrink: true
+              sx: { backgroundColor: '#fff', fontSize: 17, fontWeight: 500, color: '#0056FF' },
+              shrink: undefined // permite o label flutuar normalmente
             }}
             sx={{
               mt: 2,
@@ -186,11 +176,6 @@ function Register() {
                 height: 56,
                 borderRadius: 2,
                 fontSize: 17,
-              },
-              '& .MuiInputLabel-root': {
-                top: 0,
-                left: 0,
-                transform: 'none',
               },
             }}
           />
@@ -205,10 +190,10 @@ function Register() {
             error={!!errors.password}
             helperText={errors.password || 'Mínimo 8 caracteres'}
             InputLabelProps={{
-              sx: { backgroundColor: '#fff', fontSize: 17, fontWeight: 500, color: '#0056FF', top: 0 },
-              shrink: true
+              sx: { backgroundColor: '#fff', fontSize: 17, fontWeight: 500, color: '#0056FF' },
+              shrink: undefined // permite o label flutuar normalmente
             }}
-            inputProps={{ style: { height: 28, padding: '16.5px 14px', fontSize: 17 } }}
+            inputProps={{ style: { height: 48, padding: '16.5px 14px', fontSize: 17 } }}
             sx={{
               mt: 2,
               mb: 1,
@@ -216,11 +201,6 @@ function Register() {
                 height: 56,
                 borderRadius: 2,
                 fontSize: 17,
-              },
-              '& .MuiInputLabel-root': {
-                top: 0,
-                left: 0,
-                transform: 'none',
               },
             }}
           />
@@ -235,10 +215,10 @@ function Register() {
             error={!!errors.confirmPassword}
             helperText={errors.confirmPassword}
             InputLabelProps={{
-              sx: { backgroundColor: '#fff', fontSize: 17, fontWeight: 500, color: '#0056FF', top: 0 },
-              shrink: true
+              sx: { backgroundColor: '#fff', fontSize: 17, fontWeight: 500, color: '#0056FF' },
+              shrink: undefined // permite o label flutuar normalmente
             }}
-            inputProps={{ style: { height: 28, padding: '16.5px 14px', fontSize: 17 } }}
+            inputProps={{ style: { height: 48, padding: '16.5px 14px', fontSize: 17 } }}
             sx={{
               mt: 2,
               mb: 1,
@@ -246,11 +226,6 @@ function Register() {
                 height: 56,
                 borderRadius: 2,
                 fontSize: 17,
-              },
-              '& .MuiInputLabel-root': {
-                top: 0,
-                left: 0,
-                transform: 'none',
               },
             }}
           />

@@ -100,15 +100,32 @@ const Step3 = ({ formData, handleChange, handleCheckboxChange, onBack, onSubmit,
           {errors.confirmacao}
         </Typography>
       )}
-      <button
+      <Button
+        variant="contained"
+        color="primary"
         onClick={onBack}
-        style={{
-          marginTop: 16,
-          marginBottom: 0, // diminui o espaço abaixo do botão
+        startIcon={<span style={{ display: 'flex', alignItems: 'center', fontSize: 22, marginRight: 4 }}>&larr;</span>}
+        sx={{
+          mt: 2,
+          fontWeight: 'bold',
+          borderRadius: 2,
+          fontSize: 16,
+          boxShadow: 'none',
+          background: '#0033ff',
+          color: '#fff',
+          textTransform: 'none',
+          px: 4,
+          py: 1.5,
+          letterSpacing: 1,
+          height: '48px', // Garante altura igual ao outro botão
+          minHeight: '48px',
+          '&:hover': {
+            background: '#0022aa',
+          },
         }}
       >
         Voltar
-      </button>
+      </Button>
       
       <Button
         variant="contained"
@@ -121,15 +138,11 @@ const Step3 = ({ formData, handleChange, handleCheckboxChange, onBack, onSubmit,
           boxShadow: 4,
           background: '#0033ff',
           color: '#fff',
-          fontSize: 15,
+          fontSize: 18,
           textTransform: 'none',
           px: 4,
-          py: 1,
+          py: 1.5,
           letterSpacing: 1,
-          minWidth: 140,
-          height: 36,
-          display: 'block',
-          alignSelf: 'center',
           '&:hover': {
             background: '#0022aa',
             boxShadow: 6,

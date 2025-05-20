@@ -271,6 +271,7 @@ function Form() {
               {activeStep === 1 && (
                 <Step2
                   formData={formData}
+                  setFormData={setFormData} // <-- Adicionado para permitir atualização global
                   handleChange={handleChange}
                   handleCepChange={handleCepChange}
                   cepError={cepError}

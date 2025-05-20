@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Register from './Register';
 import Login from './Login';
 import Form from './Form';
@@ -8,6 +8,7 @@ import LoanApply from './LoanApply';
 import './App.css';
 import { ReactComponent as ReguaH1 } from './assets/Barra header.svg';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import ProtectedRoute from './ProtectedRoute';
 
 const theme = createTheme({
   components: {
@@ -44,8 +45,8 @@ function App() {
           <Routes>
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/form" element={<Form />} />
-            <Route path="/menu" element={<Menu onNavigate={(view) => {
+            <Route path="/form" element={<ProtectedRoute><Form /></ProtectedRoute>} />
+            <Route path="/menu" element={<ProtectedRoute><Menu onNavigate={(view) => {
               if (view === 'dadosPessoais') {
                 window.location.href = '/form';
               } else if (view === 'solicitarEmprestimo') {
@@ -53,9 +54,9 @@ function App() {
               } else {
                 console.log(`Navigate to: ${view}`);
               }
-            }} />} />
-            <Route path="/loan-apply" element={<LoanApply />} />
-            <Route path="/" element={<Menu />} />
+            }} /></ProtectedRoute>} />
+            <Route path="/loan-apply" element={<ProtectedRoute><LoanApply /></ProtectedRoute>} />
+            <Route path="/" element={<Navigate to="/login" replace />} />
           </Routes>
         </Router>
       </div>

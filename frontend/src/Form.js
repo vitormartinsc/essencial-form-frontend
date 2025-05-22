@@ -212,8 +212,8 @@ function Form() {
   return (
     <>
       {currentView === 'dadosPessoais' && (
-        <Container maxWidth={true} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <Box sx={{ mt: 5, p: 3, boxShadow: 3, borderRadius: 2, backgroundColor: 'white', width: { xs: '100vw', sm: '95%', md: '900px' }, maxWidth: '1100px' }}>
+        <Container maxWidth="md" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', px: 2 }}>
+          <Box sx={{ mt: 5, p: 3, boxShadow: 3, borderRadius: 2, backgroundColor: 'white', width: '100%', maxWidth: '900px', mx: 'auto' }}>
             <Stepper
               activeStep={activeStep}
               sx={{

@@ -102,7 +102,7 @@ const Menu = ({ onNavigate }) => {
   return (
     <Box sx={{
       background: 'linear-gradient(135deg, #0033ff 0%, #0033ff 100%)',
-      width: '100vw',
+      width: '100%',
       minHeight: '100vh',
       left: 0,
       top: 0,
@@ -117,15 +117,16 @@ const Menu = ({ onNavigate }) => {
         background: '#fff',
         borderRadius: 3,
         boxShadow: 4,
-        width: '80vw',
+        width: '100%',
         maxWidth: 700,
         minHeight: 500,
         p: 0,
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'flex-start', // Corrige centralização
-        alignItems: 'stretch', // Garante alinhamento à esquerda
+        justifyContent: 'flex-start',
+        alignItems: 'stretch',
+        mx: 'auto',
       }}>
         <Box sx={{ background: '#0033ff', py: 3, px: 2, textAlign: 'center' }}>
           <Typography variant="h6" sx={{ color: '#fff', fontWeight: 'bold', letterSpacing: 1, mb: 0 }}>

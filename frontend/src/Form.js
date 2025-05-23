@@ -7,6 +7,7 @@ import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
 import './MobileInputs.css';
+import { authFetch } from './authFetch';
 
 const API_URL = process.env.REACT_APP_API_URL || 'https://essencal-form-backend.onrender.com';
 
@@ -69,12 +70,10 @@ function Form() {
     if (currentView !== 'dadosPessoais') return;
     const fetchPersonalData = async () => {
       try {
-        const token = localStorage.getItem('accessToken');
-        const response = await fetch(`${API_URL}/personal-data/get/`, {
+        const response = await authFetch(`${API_URL}/personal-data/get/`, {
           method: 'GET',
-          headers: token ? { 'Authorization': `Bearer ${token}` } : {},
         });
-        if (response.ok) {
+        if (response && response.ok) {
           const data = await response.json();
           if (!data.error) {
             setFormData((prev) => ({
@@ -168,10 +167,9 @@ function Form() {
 
   // Função para salvar dados parciais a cada avanço de etapa
   const savePartialData = async (partialData) => {
-    console.log(partialData)
     try {
       const token = localStorage.getItem('accessToken');
-      await fetch(`${API_URL}/personal-data/`, {
+      await authFetch(`${API_URL}/personal-data/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -188,7 +186,7 @@ function Form() {
     if (e && e.preventDefault) e.preventDefault();
     try {
       const token = localStorage.getItem('accessToken');
-      const response = await fetch(`${API_URL}/personal-data/`, {
+      const response = await authFetch(`${API_URL}/personal-data/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -196,10 +194,10 @@ function Form() {
         },
         body: JSON.stringify(toSnakeCase(formData)),
       });
-      if (response.ok) {
+      if (response && response.ok) {
         const data = await response.json();
         //alert(data.message || 'Dados enviados com sucesso!');
-      } else {
+      } else if (response) {
         const errorData = await response.json();
         alert(errorData.error || 'Erro ao enviar os dados.');
       }

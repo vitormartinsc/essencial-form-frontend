@@ -5,6 +5,7 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ReportProblemIcon from '@mui/icons-material/ReportProblem';
 import { useState } from 'react';
+import { authFetch } from './authFetch';
 
 const API_URL = process.env.REACT_APP_API_URL || 'https://essencal-form-backend.onrender.com';
 
@@ -65,12 +66,10 @@ const Menu = ({ onNavigate }) => {
     // Busca os dados pessoais do usuário ao abrir o menu
     const fetchPersonalData = async () => {
       try {
-        const token = localStorage.getItem('accessToken');
-        const response = await fetch(`${API_URL}/personal-data/get/`, {
+        const response = await authFetch(`${API_URL}/personal-data/get/`, {
           method: 'GET',
-          headers: token ? { 'Authorization': `Bearer ${token}` } : {},
         });
-        if (response.ok) {
+        if (response && response.ok) {
           const data = await response.json();
           if (!data.error) {
             setPersonalData({

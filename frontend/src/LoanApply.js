@@ -6,6 +6,7 @@ import LoanApplyStep4, { validateLoanStep4 } from './LoanApplyStep4';
 import HomeIcon from '@mui/icons-material/Home';
 import { Button, Typography, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { authFetch } from './authFetch';
 
 const API_URL = process.env.REACT_APP_API_URL || 'https://essencal-form-backend.onrender.com';
 
@@ -48,22 +49,40 @@ const LoanApply = () => {
       } else {
         setGlobalError('');
       }
+      // Função para converter camelCase para snake_case
+      const toSnakeCase = str => str.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
       const formDataToSend = new FormData();
       Object.entries(formData).forEach(([key, value]) => {
+        let snakeKey = toSnakeCase(key);
+        // Converter valores numéricos corretamente
+        if (snakeKey === 'loan_amount' && typeof value === 'string') {
+          value = parseFloat(value.replace(/\./g, '').replace(',', '.'));
+        }
+        if (snakeKey === 'available_limit' && typeof value === 'string') {
+          value = parseFloat(value.replace(/\./g, '').replace(',', '.'));
+        }
+        if (snakeKey === 'installments' && typeof value === 'string') {
+          value = parseInt(value, 10);
+        }
+        // Só adiciona arquivos se forem File
         if (value instanceof File) {
-          formDataToSend.append(key, value);
-        } else if (value !== undefined && value !== null) {
-          formDataToSend.append(key, value);
+          formDataToSend.append(snakeKey, value);
+        } else if (typeof value === 'string' && value.trim() !== '') {
+          formDataToSend.append(snakeKey, value);
+        } else if (typeof value === 'number' && !isNaN(value)) {
+          formDataToSend.append(snakeKey, value);
         }
       });
+      // Logando o conteúdo do formDataToSend para debug
+      for (let pair of formDataToSend.entries()) {
+        console.log(pair[0]+ ':', pair[1]);
+      }
       try {
-        const token = localStorage.getItem('accessToken');
-        const response = await fetch(`${API_URL}/loan-apply/`, {
+        const response = await authFetch(`${API_URL}/loan-apply/`, {
           method: 'POST',
           body: formDataToSend,
-          headers: token ? { 'Authorization': `Bearer ${token}` } : {},
         });
-        if (response.ok) {
+        if (response && response.ok) {
           alert('Solicitação enviada com sucesso!');
         } else {
           alert('Erro ao enviar solicitação.');

@@ -24,7 +24,7 @@ const formatPhone = (value) => {
   const onlyDigits = value.replace(/\D/g, '').slice(0, 11); // Remove tudo que não é número e limita a 11 dígitos
   return onlyDigits
     .replace(/(\d{2})(\d)/, '($1) $2')
-    .replace(/(\d{5})(\d)/, '$1-$2');
+    .replace(/(\d{5})(\d)/, '$1$2');
 };
 
 // Função para validar os campos obrigatórios
@@ -59,7 +59,17 @@ const Step1 = ({ formData, handleChange, onNext, onSave }) => {
       setErrors(newErrors);
     } else {
       setErrors({});
-      if (onSave) await onSave(formData); // Salva dados antes de avançar
+      // Converte para snake_case antes de salvar
+      const toSnakeCase = (obj) => {
+        const newObj = {};
+        for (const key in obj) {
+          const snakeKey = key.replace(/([A-Z])/g, "_$1").toLowerCase();
+          newObj[snakeKey] = obj[key];
+        }
+        return newObj;
+      };
+      if (onSave) await onSave(toSnakeCase(formData)); // Salva dados antes de avançar
+      console.log(formData);
       onNext();
     }
   };

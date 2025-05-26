@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Typography, Box, Stepper, Step, StepLabel, Button } from '@mui/material';
+import { Container, Typography, Box, Stepper, Step, StepLabel, Button, Alert } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -212,58 +212,60 @@ function Form() {
       {currentView === 'dadosPessoais' && (
         <Container maxWidth="md" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', px: 2 }}>
           <Box sx={{ mt: 5, p: 3, boxShadow: 3, borderRadius: 2, backgroundColor: 'white', width: '100%', maxWidth: '900px', mx: 'auto' }}>
-            <Stepper
-              activeStep={activeStep}
-              sx={{
-                justifyContent: 'flex-start',
-                alignItems: 'flex-start',
-                width: { xs: '90vw', sm: '100%' },
-                maxWidth: { xs: 220, sm: 500 },
-                minWidth: { xs: 0, sm: 400 },
-                px: { xs: 0, sm: 2 },
-                mx: { xs: 'auto', sm: 0 },
-                mb: { xs: 2, sm: 3 },
-                '& .MuiStepConnector-root': {
-                  minHeight: 20,
-                },
-                '& .MuiStepLabel-label': {
-                  fontSize: { xs: 0, sm: 16 },
-                  display: { xs: 'none', sm: 'inline' },
-                },
-                '& .MuiStepIcon-root': {
-                  fontSize: { xs: 22, sm: 28 },
-                  color: '#b0b8c1',
-                  background: '#fff',
-                  borderRadius: '50%',
-                  border: '2px solid #e0e0e0',
-                  boxSizing: 'border-box',
-                },
-                '& .MuiStepIcon-root.Mui-active': {
-                  color: '#fff',
-                  background: '#0033ff',
-                  border: '3px solid #0033ff',
-                  fontWeight: 'bold',
-                  fontSize: { xs: 28, sm: 36 },
-                  boxShadow: '0 0 0 6px #e6eaff, 0 0 12px #0033ff55',
-                  transform: 'scale(1.18)',
-                  zIndex: 2,
-                },
-                '& .MuiStepIcon-root.Mui-completed': {
-                  color: '#0033ff',
-                  background: '#e6eaff',
-                  border: '2px solid #0033ff',
-                },
-              }}
-            >
-              {steps.map((label, idx) => (
-                <Step key={label}>
-                  <StepLabel>{window.innerWidth < 600 ? '' : label}</StepLabel>
-                </Step>
-              ))}
-            </Stepper>
-            <Typography variant="h5" component="h1" gutterBottom sx={{ mt: 3, textAlign: 'left' }}>
-              {steps[activeStep]}
-            </Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+              <Stepper
+                activeStep={activeStep}
+                sx={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: { xs: '90vw', sm: '100%' },
+                  maxWidth: { xs: 220, sm: 500 },
+                  minWidth: { xs: 0, sm: 400 },
+                  px: { xs: 0, sm: 2 },
+                  mx: { xs: 'auto', sm: 0 },
+                  mb: { xs: 2, sm: 3 },
+                  '& .MuiStepConnector-root': {
+                    minHeight: 20,
+                  },
+                  '& .MuiStepLabel-label': {
+                    fontSize: { xs: 0, sm: 16 },
+                    display: { xs: 'none', sm: 'inline' },
+                  },
+                  '& .MuiStepIcon-root': {
+                    fontSize: { xs: 22, sm: 28 },
+                    color: '#b0b8c1',
+                    background: '#fff',
+                    borderRadius: '50%',
+                    border: '2px solid #e0e0e0',
+                    boxSizing: 'border-box',
+                  },
+                  '& .MuiStepIcon-root.Mui-active': {
+                    color: '#fff',
+                    background: '#0033ff',
+                    border: '3px solid #0033ff',
+                    fontWeight: 'bold',
+                    fontSize: { xs: 28, sm: 36 },
+                    boxShadow: '0 0 0 6px #e6eaff, 0 0 12px #0033ff55',
+                    transform: 'scale(1.18)',
+                    zIndex: 2,
+                  },
+                  '& .MuiStepIcon-root.Mui-completed': {
+                    color: '#0033ff',
+                    background: '#e6eaff',
+                    border: '2px solid #0033ff',
+                  },
+                }}
+              >
+                {steps.map((label, idx) => (
+                  <Step key={label}>
+                    <StepLabel>{window.innerWidth < 600 ? '' : label}</StepLabel>
+                  </Step>
+                ))}
+              </Stepper>
+              <Typography variant="h5" component="h1" gutterBottom sx={{ mt: 3, textAlign: 'center', width: '100%' }}>
+                {steps[activeStep]}
+              </Typography>
+            </Box>
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
               {activeStep === 0 && <Step1 formData={formData} handleChange={handleChange} onNext={handleNext} onSave={savePartialData} />}
               {activeStep === 1 && (
@@ -319,6 +321,11 @@ function Form() {
                 Voltar
               </Button>
             </form>
+            <Alert severity="info" sx={{ mt: 2, mb: 2, background: '#e3f2fd', color: '#0056FF', border: '1px solid #b6d4fe', fontWeight: 500, textAlign: 'left', boxShadow: '0 2px 8px 0 rgba(0,0,0,0.04)' }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, justifyContent: { xs: 'flex-start', sm: 'center' } }}>
+                <span>É necessário possuir um cartão de crédito válido para realizar o empréstimo.</span>
+              </Box>
+            </Alert>
             <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
             </Box>
           </Box>

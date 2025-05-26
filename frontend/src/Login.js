@@ -46,8 +46,8 @@ function Login() {
           Bem-vindo de volta!
         </Typography>
 
-        <Alert severity="info" sx={{ mt: 2, mb: 2, background: '#e3f2fd', color: '#0056FF', border: '1px solid #b6d4fe', fontWeight: 500, justifyContent: 'center', alignItems: 'center', textAlign: 'center', boxShadow: '0 2px 8px 0 rgba(0,0,0,0.04)' }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
+        <Alert severity="info" sx={{ mt: 2, mb: 2, background: '#e3f2fd', color: '#0056FF', border: '1px solid #b6d4fe', fontWeight: 500, textAlign: 'left', boxShadow: '0 2px 8px 0 rgba(0,0,0,0.04)' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, justifyContent: { xs: 'flex-start', sm: 'center' } }}>
             <span>É necessário possuir um cartão de crédito válido para realizar o empréstimo.</span>
           </Box>
         </Alert>

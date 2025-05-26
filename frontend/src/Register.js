@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, Button, Container, Typography, Box, Link, Alert } from '@mui/material';
+import { TextField, Button, Container, Typography, Box, Link, Alert, Checkbox, FormControlLabel, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const API_URL = process.env.REACT_APP_API_URL || 'https://essencal-form-backend.onrender.com';
@@ -7,6 +7,8 @@ console.log(API_URL);
 function Register() {
   const [formData, setFormData] = useState({ fullName: '', email: '', phone: '', password: '', confirmPassword: '' });
   const [errors, setErrors] = useState({});
+  const [privacyOpen, setPrivacyOpen] = useState(false);
+  const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
   const navigate = useNavigate();
 
   // Máscara para telefone celular brasileiro
@@ -37,7 +39,7 @@ function Register() {
     if (!formData.email) newErrors.email = 'Email é obrigatório';
     else if (!isValidEmail(formData.email)) newErrors.email = 'Email inválido';
     if (!formData.phone) newErrors.phone = 'Celular/WhatsApp é obrigatório';
-    else if (formData.phone.replace(/\D/g, '').length <= 10) newErrors.phone = 'Celular deve ter 11 dígitos';
+    else if (formData.phone.replace(/\D/g, '').length < 10) newErrors.phone = 'Celular deve ter o DDD mais, pelo menos, 8 dígitos';
     if (!formData.password) newErrors.password = 'Senha é obrigatória';
     else if (formData.password.length < 8) newErrors.password = 'A senha deve ter no mínimo 8 caracteres';
     if (!formData.confirmPassword) newErrors.confirmPassword = 'Confirme sua senha';
@@ -45,9 +47,14 @@ function Register() {
     return newErrors;
   };
 
+  const handlePrivacyCheckbox = (e) => setAcceptedPrivacy(e.target.checked);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validate();
+    if (!acceptedPrivacy) {
+      validationErrors.acceptedPrivacy = 'É necessário aceitar a Política de Privacidade para continuar.';
+    }
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
@@ -102,8 +109,10 @@ function Register() {
         <Typography variant="h6" component="h2" gutterBottom>
           Preencha seus dados
         </Typography>
-        <Alert severity="warning" sx={{ mt: 2 }}>
-          É necessário possuir um cartão de crédito para realizar o empréstimo.
+        <Alert severity="info" sx={{ mt: 2, mb: 2, background: '#e3f2fd', color: '#0056FF', border: '1px solid #b6d4fe', fontWeight: 500, textAlign: 'left', boxShadow: '0 2px 8px 0 rgba(0,0,0,0.04)' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, justifyContent: { xs: 'flex-start', sm: 'center' } }}>
+            <span>É necessário possuir um cartão de crédito com limite disponível para realizar o empréstimo.</span>
+          </Box>
         </Alert>
         <form onSubmit={handleSubmit}>
           <TextField
@@ -229,6 +238,56 @@ function Register() {
               },
             }}
           />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={acceptedPrivacy}
+                onChange={handlePrivacyCheckbox}
+                color="primary"
+              />
+            }
+            label={<span>Li e aceito a <span style={{color:'#0056FF', cursor:'pointer', textDecoration:'underline'}} onClick={()=>setPrivacyOpen(true)}>Política de Privacidade</span></span>}
+            sx={{ mt: 2, mb: 1 }}
+          />
+          {errors.acceptedPrivacy && (
+            <Typography variant="caption" color="error">{errors.acceptedPrivacy}</Typography>
+          )}
+          <Dialog open={privacyOpen} onClose={()=>setPrivacyOpen(false)} maxWidth="md" fullWidth>
+            <DialogTitle sx={{fontWeight:700, color:'#0056FF'}}>Política de Privacidade – Essencial</DialogTitle>
+            <DialogContent dividers sx={{maxHeight: '60vh'}}>
+              <Typography variant="body2" sx={{whiteSpace:'pre-line'}}>
+<strong>Bem-vindo à Essencial!</strong>
+
+Sua privacidade é muito importante para nós. Por isso, queremos explicar de forma clara e transparente como tratamos seus dados:
+
+<strong>Coleta e Uso de Dados</strong>
+• Coletamos apenas as informações necessárias para oferecer nossos serviços e melhorar sua experiência.
+• Seus dados são usados exclusivamente para cadastro, contato, análise de crédito e obrigações legais.
+
+<strong>Segurança</strong>
+• Armazenamos seus dados com segurança e adotamos medidas para protegê-los contra acessos não autorizados.
+• Não compartilhamos suas informações pessoais com terceiros, exceto quando exigido por lei.
+
+<strong>Seus Direitos</strong>
+• Você pode solicitar a qualquer momento acesso, correção ou exclusão dos seus dados.
+• Para dúvidas ou solicitações, entre em contato conosco pelo nosso canal de atendimento.
+
+<strong>Cookies</strong>
+• Utilizamos cookies para melhorar sua navegação, personalizar conteúdo e analisar o uso do site.
+• Você pode desativar os cookies nas configurações do seu navegador, mas isso pode limitar algumas funcionalidades.
+
+<strong>Compromisso do Usuário</strong>
+• Utilize nossos serviços de forma ética, respeitando a legislação e os direitos de terceiros.
+
+Esta política pode ser atualizada periodicamente. Recomendamos que você revise este documento sempre que utilizar nossos serviços.
+
+<strong>Essencial – Cuidando da sua privacidade em cada etapa!</strong>
+              </Typography>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={()=>setPrivacyOpen(false)} color="primary">Fechar</Button>
+            </DialogActions>
+          </Dialog>
           <Button
             fullWidth
             variant="contained"

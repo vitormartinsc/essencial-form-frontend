@@ -23,7 +23,16 @@ const Step2 = ({ formData, handleChange, handleCepChange, onNext, onBack, onSave
       setErrors(newErrors);
     } else {
       setErrors({});
-      if (onSave) await onSave(formData); // Salva dados antes de avançar
+      // Converte para snake_case antes de salvar
+      const toSnakeCase = (obj) => {
+        const newObj = {};
+        for (const key in obj) {
+          const snakeKey = key.replace(/([A-Z])/g, "_$1").toLowerCase();
+          newObj[snakeKey] = obj[key];
+        }
+        return newObj;
+      };
+      if (onSave) await onSave(toSnakeCase(formData)); // Salva dados antes de avançar
       onNext();
     }
   };

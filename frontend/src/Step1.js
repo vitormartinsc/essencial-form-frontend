@@ -44,8 +44,14 @@ const isStepValid = (formData) => {
   return requiredFields.every((field) => formData[field] && formData[field].toString().trim() !== '');
 };
 
-const Step1 = ({ formData, handleChange, onNext, onSave }) => {
+const Step1 = ({ formData, handleChange, onNext, onSave, toSnakeCase }) => {
   const [errors, setErrors] = React.useState({});
+
+  // Garante que sempre pega o valor mais recente do input
+  const handleInputChange = (e) => {
+    handleChange(e); // Atualiza o estado global imediatamente
+    setErrors((prev) => ({ ...prev, [e.target.name]: '' }));
+  };
 
   const handleNextClick = async () => {
     const newErrors = {};
@@ -59,17 +65,10 @@ const Step1 = ({ formData, handleChange, onNext, onSave }) => {
       setErrors(newErrors);
     } else {
       setErrors({});
-      // Converte para snake_case antes de salvar
-      const toSnakeCase = (obj) => {
-        const newObj = {};
-        for (const key in obj) {
-          const snakeKey = key.replace(/([A-Z])/g, "_$1").toLowerCase();
-          newObj[snakeKey] = obj[key];
-        }
-        return newObj;
-      };
-      if (onSave) await onSave(toSnakeCase(formData)); // Salva dados antes de avançar
-      console.log(formData);
+      // Debug: veja o que está sendo enviado para o backend
+      const dataToSend = toSnakeCase ? toSnakeCase(formData) : formData;
+      console.log('DEBUG dados enviados para o backend:', dataToSend);
+      if (onSave) await onSave(dataToSend);
       onNext();
     }
   };
@@ -81,10 +80,7 @@ const Step1 = ({ formData, handleChange, onNext, onSave }) => {
         label="Nome Completo"
         name="fullName"
         value={formData.fullName}
-        onChange={(e) => {
-          handleChange(e);
-          setErrors((prev) => ({ ...prev, fullName: '' }));
-        }}
+        onChange={handleInputChange}
         error={!!errors.fullName}
         helperText={errors.fullName}
         sx={{ flex: '1 1 45%' }}
@@ -97,8 +93,7 @@ const Step1 = ({ formData, handleChange, onNext, onSave }) => {
         name="phone"
         value={formData.phone || ''}
         onChange={(e) => {
-          handleChange({ target: { name: 'phone', value: formatPhone(e.target.value) } });
-          setErrors((prev) => ({ ...prev, phone: '' }));
+          handleInputChange({ target: { name: 'phone', value: formatPhone(e.target.value) } });
         }}
         error={!!errors.phone}
         helperText={errors.phone}

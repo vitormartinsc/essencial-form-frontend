@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import Register from './Register';
 import Login from './Login';
 import Form from './Form';
@@ -35,6 +35,7 @@ const theme = createTheme({
 });
 
 function App() {
+  const navigate = useNavigate();
   return (
     <ThemeProvider theme={theme}>
       <header className="App-header-full">
@@ -49,9 +50,9 @@ function App() {
           <Route path="/form" element={<ProtectedRoute><Form /></ProtectedRoute>} />
           <Route path="/menu" element={<ProtectedRoute><Menu onNavigate={(view) => {
             if (view === 'dadosPessoais') {
-              window.location.href = '/form';
+              navigate('/form');
             } else if (view === 'solicitarEmprestimo') {
-              window.location.href = '/loan-apply';
+              navigate('/loan-apply');
             } else {
               console.log(`Navigate to: ${view}`);
             }

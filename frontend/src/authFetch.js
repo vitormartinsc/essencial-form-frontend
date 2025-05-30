@@ -38,7 +38,7 @@ export async function authFetch(url, options = {}, retry = true) {
         // Se o refresh falhar, redireciona para login
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
-        window.location.href = '/login';
+        window.location.hash = '#/login';
         return; // Para execução
       }
     }

@@ -1,5 +1,6 @@
 import { Typography, TextField, Select, MenuItem, FormControlLabel, Checkbox, Button } from '@mui/material';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // Função para formatar valores monetários
 const formatCurrency = (value) => {
@@ -13,6 +14,7 @@ const formatCurrency = (value) => {
 
 const Step3 = ({ formData, handleChange, handleCheckboxChange, onBack, onSubmit, onSave }) => {
   const [errors, setErrors] = React.useState({});
+  const navigate = useNavigate();
 
   const handleFinalSubmit = async (e) => {
     if (e) e.preventDefault();
@@ -31,7 +33,7 @@ const Step3 = ({ formData, handleChange, handleCheckboxChange, onBack, onSubmit,
       if (onSubmit) {
         await onSubmit();
       }
-      window.location.href = '/loan-apply';
+      navigate('/loan-apply');
     }
   };
 

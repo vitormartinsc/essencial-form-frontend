@@ -6,10 +6,12 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import ReportProblemIcon from '@mui/icons-material/ReportProblem';
 import { useState } from 'react';
 import { authFetch } from './authFetch';
+import { useNavigate } from 'react-router-dom';
 
 const API_URL = process.env.REACT_APP_API_URL || 'https://essencal-form-backend.onrender.com';
 
 const Menu = ({ onNavigate }) => {
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const [showPersonalDataWarning, setShowPersonalDataWarning] = React.useState(false);
   const [actionLoading, setActionLoading] = React.useState(false);
@@ -17,7 +19,7 @@ const Menu = ({ onNavigate }) => {
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
-    window.location.href = '/login';
+    navigate('/login');
   };
 
   // Função para checar se todos os dados pessoais obrigatórios estão preenchidos
@@ -58,7 +60,7 @@ const Menu = ({ onNavigate }) => {
     setActionLoading(true);
     // Pequeno delay para garantir renderização do spinner antes da navegação
     setTimeout(() => {
-      window.location.href = '/loan-apply';
+      navigate('/loan-apply');
     }, 150);
   };
 
@@ -147,7 +149,7 @@ const Menu = ({ onNavigate }) => {
               startIcon={<EditIcon />}
               onClick={() => {
                 setShowPersonalDataWarning(false);
-                onNavigate('dadosPessoais');
+                navigate('/form');
               }}
               sx={{
                 minHeight: '48px',

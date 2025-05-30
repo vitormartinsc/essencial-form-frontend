@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Register from './Register';
 import Login from './Login';
 import Form from './Form';
@@ -43,26 +43,24 @@ function App() {
         </div>
       </header>
       <div className="App">
-        <Router>
-          <Routes>
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/form" element={<ProtectedRoute><Form /></ProtectedRoute>} />
-            <Route path="/menu" element={<ProtectedRoute><Menu onNavigate={(view) => {
-              if (view === 'dadosPessoais') {
-                window.location.href = '/form';
-              } else if (view === 'solicitarEmprestimo') {
-                window.location.href = '/loan-apply';
-              } else {
-                console.log(`Navigate to: ${view}`);
-              }
-            }} /></ProtectedRoute>} />
-            <Route path="/loan-apply" element={<ProtectedRoute><LoanApply /></ProtectedRoute>} />
-            <Route path="/forgot-password" element={<ForgotPassword />} /> {/* Rota para a tela ForgotPassword */}
-            <Route path="/reset-password" element={<ResetPassword />} /> {/* Rota para a tela ResetPassword */}
-            <Route path="/" element={<Navigate to="/login" replace />} />
-          </Routes>
-        </Router>
+        <Routes>
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/form" element={<ProtectedRoute><Form /></ProtectedRoute>} />
+          <Route path="/menu" element={<ProtectedRoute><Menu onNavigate={(view) => {
+            if (view === 'dadosPessoais') {
+              window.location.href = '/form';
+            } else if (view === 'solicitarEmprestimo') {
+              window.location.href = '/loan-apply';
+            } else {
+              console.log(`Navigate to: ${view}`);
+            }
+          }} /></ProtectedRoute>} />
+          <Route path="/loan-apply" element={<ProtectedRoute><LoanApply /></ProtectedRoute>} />
+          <Route path="/forgot-password" element={<ForgotPassword />} /> {/* Rota para a tela ForgotPassword */}
+          <Route path="/reset-password" element={<ResetPassword />} /> {/* Rota para a tela ResetPassword */}
+          <Route path="/" element={<Navigate to="/login" replace />} />
+        </Routes>
       </div>
     </ThemeProvider>
   );

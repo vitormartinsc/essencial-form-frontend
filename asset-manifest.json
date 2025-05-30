@@ -1,0 +1,40 @@
+{
+  "files": {
+    "main.css": "/essencial-form-frontend/static/css/main.b7da5ef0.css",
+    "main.js": "/essencial-form-frontend/static/js/main.cdeb4d93.js",
+    "static/js/453.8ab44547.chunk.js": "/essencial-form-frontend/static/js/453.8ab44547.chunk.js",
+    "static/media/hipercard.svg": "/essencial-form-frontend/static/media/hipercard.9543862cb0f147e19b64.svg",
+    "static/media/code.svg": "/essencial-form-frontend/static/media/code.6e8ce8dbf1ee87c568b0.svg",
+    "static/media/unionpay.svg": "/essencial-form-frontend/static/media/unionpay.c0d0b84b8734f16bb375.svg",
+    "static/media/code-front.svg": "/essencial-form-frontend/static/media/code-front.5e5af838779783dd8374.svg",
+    "static/media/Barra header.svg": "/essencial-form-frontend/static/media/Barra header.1154f8339b2b42fb2ae0be2e6ec8767f.svg",
+    "static/media/amex.svg": "/essencial-form-frontend/static/media/amex.9118c1b28881f32c3245.svg",
+    "static/media/paypal.svg": "/essencial-form-frontend/static/media/paypal.f4d2793ef606d745183d.svg",
+    "static/media/limite_disponivel_cartao_virtual.svg": "/essencial-form-frontend/static/media/limite_disponivel_cartao_virtual.5190c2fa1034b34f3c694b75a171b54e.svg",
+    "static/media/alipay.svg": "/essencial-form-frontend/static/media/alipay.28eed4e125718c7d49e3.svg",
+    "static/media/jcb.svg": "/essencial-form-frontend/static/media/jcb.4e43392bb8d8d8721641.svg",
+    "static/media/cnh.svg": "/essencial-form-frontend/static/media/cnh.2273f01826e01a067d0e959e37f04144.svg",
+    "static/media/cartao_virtual.svg": "/essencial-form-frontend/static/media/cartao_virtual.fcdac4a0b93ce5ffcc7d99daf85e534b.svg",
+    "static/media/discover.svg": "/essencial-form-frontend/static/media/discover.5aaf268daecad66a9b14.svg",
+    "static/media/mir.svg": "/essencial-form-frontend/static/media/mir.3d3c94e0c5d8c498a405.svg",
+    "static/media/hiper.svg": "/essencial-form-frontend/static/media/hiper.1c5cea89fc16a0d761e3.svg",
+    "static/media/elo.svg": "/essencial-form-frontend/static/media/elo.2bb3ef8e0e81616f5cbd.svg",
+    "static/media/limite_disponivel_cartao_fisico.svg": "/essencial-form-frontend/static/media/limite_disponivel_cartao_fisico.22acd5648ca4cee448d132ed17fb91d8.svg",
+    "static/media/cartao_fisico_frente.svg": "/essencial-form-frontend/static/media/cartao_fisico_frente.a3683b49ccc3e320ce410d0db389e08c.svg",
+    "static/media/maestro.svg": "/essencial-form-frontend/static/media/maestro.15363c4e563a166b3f4c.svg",
+    "static/media/id_frente.svg": "/essencial-form-frontend/static/media/id_frente.173cd131f252b52054af46e3b6b6c741.svg",
+    "static/media/visa.svg": "/essencial-form-frontend/static/media/visa.874e671f278a54f5e164.svg",
+    "static/media/cartao_fisico_verso.svg": "/essencial-form-frontend/static/media/cartao_fisico_verso.09ee37ca59a4bd8441435c05358598a1.svg",
+    "index.html": "/essencial-form-frontend/index.html",
+    "static/media/id_verso.svg": "/essencial-form-frontend/static/media/id_verso.3442471b71979853d15e0503603555be.svg",
+    "static/media/mastercard.svg": "/essencial-form-frontend/static/media/mastercard.e1532df1061778cefa30.svg",
+    "static/media/diners.svg": "/essencial-form-frontend/static/media/diners.5ff09c1c7099a7191fbb.svg",
+    "main.b7da5ef0.css.map": "/essencial-form-frontend/static/css/main.b7da5ef0.css.map",
+    "main.cdeb4d93.js.map": "/essencial-form-frontend/static/js/main.cdeb4d93.js.map",
+    "453.8ab44547.chunk.js.map": "/essencial-form-frontend/static/js/453.8ab44547.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b7da5ef0.css",
+    "static/js/main.cdeb4d93.js"
+  ]
+}

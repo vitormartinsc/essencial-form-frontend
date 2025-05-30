@@ -98,7 +98,7 @@ function Login() {
             }}
           />
           <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 1 }}>
-            <Link href="#" underline="hover" sx={{ fontSize: 14 }} onClick={() => alert('Funcionalidade de recuperação de senha em breve!')}>
+            <Link href="#" underline="hover" sx={{ fontSize: 14 }} onClick={e => { e.preventDefault(); navigate('/forgot-password'); }}>
               Esqueci minha senha
             </Link>
           </Box>

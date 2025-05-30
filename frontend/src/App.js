@@ -5,6 +5,8 @@ import Login from './Login';
 import Form from './Form';
 import Menu from './Menu';
 import LoanApply from './LoanApply';
+import ForgotPassword from './ForgotPassword'; // Importando a tela ForgotPassword
+import ResetPassword from './ResetPassword'; // Importando a tela ResetPassword
 import './App.css';
 import { ReactComponent as ReguaH1 } from './assets/Barra header.svg';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -56,6 +58,8 @@ function App() {
               }
             }} /></ProtectedRoute>} />
             <Route path="/loan-apply" element={<ProtectedRoute><LoanApply /></ProtectedRoute>} />
+            <Route path="/forgot-password" element={<ForgotPassword />} /> {/* Rota para a tela ForgotPassword */}
+            <Route path="/reset-password" element={<ResetPassword />} /> {/* Rota para a tela ResetPassword */}
             <Route path="/" element={<Navigate to="/login" replace />} />
           </Routes>
         </Router>

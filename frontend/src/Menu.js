@@ -129,7 +129,11 @@ const Menu = ({ onNavigate }) => {
       }}>
         <Box sx={{ background: '#0033ff', py: 3, px: 2, textAlign: 'center' }}>
           <Typography variant="h6" sx={{ color: '#fff', fontWeight: 'bold', letterSpacing: 1, mb: 0 }}>
-             <span style={{ fontWeight: 700, fontSize: 22 }}>Bem Vindo a Essencial</span>
+             <span style={{ fontWeight: 700, fontSize: 22 }}>
+               {personalData && personalData.fullName
+                 ? `${personalData.fullName.split(' ')[0]}, bem-vindo de volta`
+                 : 'Bem-vindo de volta'}
+             </span>
           </Typography>
         </Box>
         <Box sx={{ p: 4, display: 'flex', flexDirection: 'column', gap: 4 }}>

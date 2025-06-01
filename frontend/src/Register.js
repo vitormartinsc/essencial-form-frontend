@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, Button, Container, Typography, Box, Link, Alert, Checkbox, FormControlLabel, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+import { TextField, Button, Container, Typography, Box, Link, Alert, Checkbox, FormControlLabel, Dialog, DialogTitle, DialogContent, DialogActions, CircularProgress } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const API_URL = process.env.REACT_APP_API_URL || 'https://essencal-form-backend.onrender.com';
@@ -346,7 +346,7 @@ Esta política pode ser atualizada periodicamente. Recomendamos que você revise
             disabled={loading}
             sx={{ mt: 2, backgroundColor: '#0033ff', color: '#fff', fontWeight: 'bold', borderRadius: 2, height: '48px', boxShadow: 'none', textTransform: 'none', fontSize: 18, alignSelf: 'center', '&:hover': { backgroundColor: '#0022aa' } }}
           >
-            {step === 1 ? 'Próximo' : 'Continuar'}
+            {loading ? <CircularProgress size={26} sx={{ color: '#fff' }} /> : (step === 1 ? 'Próximo' : 'Continuar')}
           </Button>
         </form>
         <Typography variant="body2" align="center" sx={{ mt: 2, color: 'black' }}>

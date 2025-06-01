@@ -11,6 +11,7 @@ import './App.css';
 import { ReactComponent as ReguaH1 } from './assets/Barra header.svg';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import ProtectedRoute from './ProtectedRoute';
+import WhatsAppFloatButton from './WhatsAppFloatButton';
 
 const theme = createTheme({
   components: {
@@ -63,6 +64,7 @@ function App() {
           <Route path="/" element={<Navigate to="/login" replace />} />
         </Routes>
       </div>
+      <WhatsAppFloatButton />
     </ThemeProvider>
   );
 }

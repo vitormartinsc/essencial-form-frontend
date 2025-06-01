@@ -10,6 +10,7 @@ function Register() {
   const [privacyOpen, setPrivacyOpen] = useState(false);
   const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
   const [step, setStep] = useState(1); // NOVO: controla a etapa do registro
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   // Máscara para telefone celular brasileiro
@@ -61,6 +62,7 @@ function Register() {
       return;
     }
     setErrors({});
+    setLoading(true);
     try {
       // Envia os dados parciais para o backend
       const response = await fetch(`${API_URL}/register/step1/`, {
@@ -81,6 +83,8 @@ function Register() {
       }
     } catch (error) {
       setErrors({ api: 'Erro de conexão com o servidor.' });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -329,11 +333,17 @@ Esta política pode ser atualizada periodicamente. Recomendamos que você revise
               <Button onClick={()=>setPrivacyOpen(false)} color="primary">Fechar</Button>
             </DialogActions>
           </Dialog>
+          {loading && (
+            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+              <Typography variant="body2" color="primary">Carregando...</Typography>
+            </Box>
+          )}
           <Button
             fullWidth
             variant="contained"
             color="primary"
             type="submit"
+            disabled={loading}
             sx={{ mt: 2, backgroundColor: '#0033ff', color: '#fff', fontWeight: 'bold', borderRadius: 2, height: '48px', boxShadow: 'none', textTransform: 'none', fontSize: 18, alignSelf: 'center', '&:hover': { backgroundColor: '#0022aa' } }}
           >
             {step === 1 ? 'Próximo' : 'Continuar'}

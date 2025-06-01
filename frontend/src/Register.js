@@ -9,6 +9,7 @@ function Register() {
   const [errors, setErrors] = useState({});
   const [privacyOpen, setPrivacyOpen] = useState(false);
   const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
+  const [step, setStep] = useState(1); // NOVO: controla a etapa do registro
   const navigate = useNavigate();
 
   // Máscara para telefone celular brasileiro
@@ -33,13 +34,18 @@ function Register() {
     }
   };
 
-  const validate = () => {
+  const validateStep1 = () => {
     const newErrors = {};
     if (!formData.fullName) newErrors.fullName = 'Nome completo é obrigatório';
     if (!formData.email) newErrors.email = 'Email é obrigatório';
     else if (!isValidEmail(formData.email)) newErrors.email = 'Email inválido';
     if (!formData.phone) newErrors.phone = 'Celular/WhatsApp é obrigatório';
     else if (formData.phone.replace(/\D/g, '').length < 10) newErrors.phone = 'Celular deve ter o DDD mais, pelo menos, 8 dígitos';
+    return newErrors;
+  };
+
+  const validateStep2 = () => {
+    const newErrors = {};
     if (!formData.password) newErrors.password = 'Senha é obrigatória';
     else if (formData.password.length < 8) newErrors.password = 'A senha deve ter no mínimo 8 caracteres';
     if (!formData.confirmPassword) newErrors.confirmPassword = 'Confirme sua senha';
@@ -47,11 +53,42 @@ function Register() {
     return newErrors;
   };
 
+  const handleNext = async (e) => {
+    e.preventDefault();
+    const validationErrors = validateStep1();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+    setErrors({});
+    try {
+      // Envia os dados parciais para o backend
+      const response = await fetch(`${API_URL}/register/step1/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fullName: formData.fullName,
+          email: formData.email,
+          phone: formData.phone
+        }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setStep(2);
+      } else {
+        // Exibe erro retornado pelo backend
+        setErrors({ api: data.error || 'Erro ao validar dados. Tente novamente.' });
+      }
+    } catch (error) {
+      setErrors({ api: 'Erro de conexão com o servidor.' });
+    }
+  };
+
   const handlePrivacyCheckbox = (e) => setAcceptedPrivacy(e.target.checked);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const validationErrors = validate();
+    const validationErrors = validateStep2();
     if (!acceptedPrivacy) {
       validationErrors.acceptedPrivacy = 'É necessário aceitar a Política de Privacidade para continuar.';
     }
@@ -114,7 +151,7 @@ function Register() {
             <span>É necessário possuir um cartão de crédito com limite disponível para realizar o empréstimo.</span>
           </Box>
         </Alert>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={step === 1 ? handleNext : handleSubmit}>
           <TextField
             fullWidth
             margin="normal"
@@ -188,69 +225,73 @@ function Register() {
               },
             }}
           />
-          <TextField
-            fullWidth
-            margin="normal"
-            label="Senha"
-            name="password"
-            type="password"
-            value={formData.password}
-            onChange={handleChange}
-            error={!!errors.password}
-            helperText={errors.password || 'Mínimo 8 caracteres'}
-            InputLabelProps={{
-              sx: { backgroundColor: '#fff', fontSize: 17, fontWeight: 500, color: '#0056FF' },
-              shrink: undefined // permite o label flutuar normalmente
-            }}
-            inputProps={{ style: { height: 48, padding: '16.5px 14px', fontSize: 17 } }}
-            sx={{
-              mt: 2,
-              mb: 1,
-              '& .MuiInputBase-root': {
-                height: 56,
-                borderRadius: 2,
-                fontSize: 17,
-              },
-            }}
-          />
-          <TextField
-            fullWidth
-            margin="normal"
-            label="Confirme a senha"
-            name="confirmPassword"
-            type="password"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            error={!!errors.confirmPassword}
-            helperText={errors.confirmPassword}
-            InputLabelProps={{
-              sx: { backgroundColor: '#fff', fontSize: 17, fontWeight: 500, color: '#0056FF' },
-              shrink: undefined // permite o label flutuar normalmente
-            }}
-            inputProps={{ style: { height: 48, padding: '16.5px 14px', fontSize: 17 } }}
-            sx={{
-              mt: 2,
-              mb: 1,
-              '& .MuiInputBase-root': {
-                height: 56,
-                borderRadius: 2,
-                fontSize: 17,
-              },
-            }}
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={acceptedPrivacy}
-                onChange={handlePrivacyCheckbox}
-                color="primary"
+          {step === 2 && (
+            <>
+              <TextField
+                fullWidth
+                margin="normal"
+                label="Senha"
+                name="password"
+                type="password"
+                value={formData.password}
+                onChange={handleChange}
+                error={!!errors.password}
+                helperText={errors.password || 'Mínimo 8 caracteres'}
+                InputLabelProps={{
+                  sx: { backgroundColor: '#fff', fontSize: 17, fontWeight: 500, color: '#0056FF' },
+                  shrink: undefined // permite o label flutuar normalmente
+                }}
+                inputProps={{ style: { height: 48, padding: '16.5px 14px', fontSize: 17 } }}
+                sx={{
+                  mt: 2,
+                  mb: 1,
+                  '& .MuiInputBase-root': {
+                    height: 56,
+                    borderRadius: 2,
+                    fontSize: 17,
+                  },
+                }}
               />
-            }
-            label={<span>Li e aceito a <span style={{color:'#0056FF', cursor:'pointer', textDecoration:'underline'}} onClick={()=>setPrivacyOpen(true)}>Política de Privacidade</span></span>}
-            sx={{ mt: 2, mb: 1 }}
-          />
-          {errors.acceptedPrivacy && (
-            <Typography variant="caption" color="error">{errors.acceptedPrivacy}</Typography>
+              <TextField
+                fullWidth
+                margin="normal"
+                label="Confirme a senha"
+                name="confirmPassword"
+                type="password"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                error={!!errors.confirmPassword}
+                helperText={errors.confirmPassword}
+                InputLabelProps={{
+                  sx: { backgroundColor: '#fff', fontSize: 17, fontWeight: 500, color: '#0056FF' },
+                  shrink: undefined // permite o label flutuar normalmente
+                }}
+                inputProps={{ style: { height: 48, padding: '16.5px 14px', fontSize: 17 } }}
+                sx={{
+                  mt: 2,
+                  mb: 1,
+                  '& .MuiInputBase-root': {
+                    height: 56,
+                    borderRadius: 2,
+                    fontSize: 17,
+                  },
+                }}
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={acceptedPrivacy}
+                    onChange={handlePrivacyCheckbox}
+                    color="primary"
+                  />
+                }
+                label={<span>Li e aceito a <span style={{color:'#0056FF', cursor:'pointer', textDecoration:'underline'}} onClick={()=>setPrivacyOpen(true)}>Política de Privacidade</span></span>}
+                sx={{ mt: 2, mb: 1 }}
+              />
+              {errors.acceptedPrivacy && (
+                <Typography variant="caption" color="error">{errors.acceptedPrivacy}</Typography>
+              )}
+            </>
           )}
           <Dialog open={privacyOpen} onClose={()=>setPrivacyOpen(false)} maxWidth="md" fullWidth>
             <DialogTitle sx={{fontWeight:700, color:'#0056FF'}}>Política de Privacidade – Essencial</DialogTitle>
@@ -295,7 +336,7 @@ Esta política pode ser atualizada periodicamente. Recomendamos que você revise
             type="submit"
             sx={{ mt: 2, backgroundColor: '#0033ff', color: '#fff', fontWeight: 'bold', borderRadius: 2, height: '48px', boxShadow: 'none', textTransform: 'none', fontSize: 18, alignSelf: 'center', '&:hover': { backgroundColor: '#0022aa' } }}
           >
-            Continuar
+            {step === 1 ? 'Próximo' : 'Continuar'}
           </Button>
         </form>
         <Typography variant="body2" align="center" sx={{ mt: 2, color: 'black' }}>

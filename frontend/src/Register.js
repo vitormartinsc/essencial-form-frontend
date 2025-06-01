@@ -128,10 +128,10 @@ function Register() {
           const tokenData = await tokenRes.json();
           localStorage.setItem('accessToken', tokenData.access);
           localStorage.setItem('refreshToken', tokenData.refresh);
-          navigate('/form');
+          navigate('/form', { replace: true }); // Usando replace para HashRouter
         } else {
           alert('Cadastro realizado, mas não foi possível autenticar automaticamente. Faça login.');
-          navigate('/login');
+          navigate('/login', { replace: true }); // Usando replace para HashRouter
         }
       } else {
         alert(data.error);

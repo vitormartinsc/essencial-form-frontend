@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Button, Container, Typography, Box, Link, Alert, Checkbox, FormControlLabel, Dialog, DialogTitle, DialogContent, DialogActions, CircularProgress } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link as RouterLink } from 'react-router-dom';
 
 const API_URL = process.env.REACT_APP_API_URL || 'https://essencal-form-backend.onrender.com';
 console.log(API_URL);
@@ -350,7 +350,10 @@ Esta política pode ser atualizada periodicamente. Recomendamos que você revise
           </Button>
         </form>
         <Typography variant="body2" align="center" sx={{ mt: 2, color: 'black' }}>
-          Já possui uma conta? <Link href="/login">Faça login!</Link>
+          Já possui uma conta?{' '}
+          <RouterLink to="/login" style={{ color: '#0056FF', textDecoration: 'underline', fontWeight: 500, cursor: 'pointer' }}>
+            Faça login!
+          </RouterLink>
         </Typography>
       </Box>
     </Container>

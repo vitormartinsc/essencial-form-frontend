@@ -4,7 +4,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ReportProblemIcon from '@mui/icons-material/ReportProblem';
-import { useState } from 'react';
 import { authFetch } from './authFetch';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,7 +11,6 @@ const API_URL = process.env.REACT_APP_API_URL || 'https://essencal-form-backend-
 
 const Menu = ({ onNavigate }) => {
   const navigate = useNavigate();
-  const [anchorEl, setAnchorEl] = useState(null);
   const [showPersonalDataWarning, setShowPersonalDataWarning] = React.useState(false);
   const [actionLoading, setActionLoading] = React.useState(false);
 

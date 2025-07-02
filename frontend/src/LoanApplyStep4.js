@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Typography, Box, Radio, RadioGroup, FormControlLabel, Button, Checkbox, IconButton } from '@mui/material';
+import { Container, Typography, Box, Radio, RadioGroup, FormControlLabel, Button, Checkbox } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import cartaoFrente from './assets/cartao_fisico_frente.svg';
 import cartaoVerso from './assets/cartao_fisico_verso.svg';

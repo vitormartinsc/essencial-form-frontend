@@ -64,10 +64,8 @@ function Form() {
 
   const [cepError, setCepError] = useState('');
   const [activeStep, setActiveStep] = useState(0);
-  const [currentView, setCurrentView] = useState('dadosPessoais');
 
   useEffect(() => {
-    if (currentView !== 'dadosPessoais') return;
     const fetchPersonalData = async () => {
       try {
         const response = await authFetch(`${API_URL}/personal-data/get/`, {
@@ -110,7 +108,7 @@ function Form() {
       }
     };
     fetchPersonalData();
-  }, [currentView]);
+  }, []);
 
   const steps = ['Informações Pessoais', 'Dados de Endereço', 'Finalizar'];
 
@@ -212,7 +210,7 @@ function Form() {
         body: JSON.stringify(toSnakeCase(formData)),
       });
       if (response && response.ok) {
-        const data = await response.json();
+        await response.json();
         //alert(data.message || 'Dados enviados com sucesso!');
       } else if (response) {
         const errorData = await response.json();
@@ -226,10 +224,9 @@ function Form() {
 
   return (
     <>
-      {currentView === 'dadosPessoais' && (
-        <Container maxWidth="md" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', px: 2 }}>
-          <Box sx={{ mt: 5, p: 3, boxShadow: 3, borderRadius: 2, backgroundColor: 'white', width: '100%', maxWidth: '900px', mx: 'auto' }}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+      <Container maxWidth="md" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', px: 2 }}>
+        <Box sx={{ mt: 5, p: 3, boxShadow: 3, borderRadius: 2, backgroundColor: 'white', width: '100%', maxWidth: '900px', mx: 'auto' }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
               <Stepper
                 activeStep={activeStep}
                 sx={{
@@ -347,12 +344,6 @@ function Form() {
             </Box>
           </Box>
         </Container>
-      )}
-      {currentView === 'solicitarEmprestimo' && (
-        <Typography variant="h4" align="center" sx={{ mt: 5 }}>
-          Página de Solicitação de Empréstimo em construção.
-        </Typography>
-      )}
     </>
   );
 }

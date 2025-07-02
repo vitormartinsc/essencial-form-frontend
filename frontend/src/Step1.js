@@ -28,7 +28,7 @@ const formatPhone = (value) => {
 };
 
 // Função para validar os campos obrigatórios
-const isStepValid = (formData) => {
+const validateStep1 = (formData) => {
   const requiredFields = [
     'fullName',
     'phone',
@@ -250,3 +250,4 @@ const Step1 = ({ formData, handleChange, onNext, onSave, toSnakeCase }) => {
 };
 
 export default Step1;
+export { validateStep1 };

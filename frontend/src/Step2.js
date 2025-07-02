@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextField, Box, Button } from '@mui/material';
 
-const isStepValid = (formData) => {
+const validateStep2 = (formData) => {
   const requiredFields = ['cep', 'uf', 'city', 'neighborhood', 'street', 'number'];
 
   return requiredFields.every((field) => formData[field] && formData[field].toString().trim() !== '');
@@ -71,7 +71,7 @@ const Step2 = ({ formData, handleChange, handleCepChange, onNext, onBack, onSave
         }
       })();
     }
-  }, [formData.cep]);
+  }, [formData.cep, formData.city, formData.neighborhood, formData.street, formData.uf, setFormData]);
 
   return (
     <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
@@ -209,3 +209,4 @@ const Step2 = ({ formData, handleChange, handleCepChange, onNext, onBack, onSave
 };
 
 export default Step2;
+export { validateStep2 };

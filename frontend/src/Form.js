@@ -9,7 +9,7 @@ import Step3 from './Step3';
 import './MobileInputs.css';
 import { authFetch } from './authFetch';
 
-const API_URL = process.env.REACT_APP_API_URL || 'https://essencal-form-backend.onrender.com';
+const API_URL = process.env.REACT_APP_API_URL || 'https://essencal-form-backend-production.up.railway.app';
 
 function formatCep(value) {
   // Remove tudo que não for número

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TextField, Button, Container, Typography, Box, Link, Alert, Checkbox, FormControlLabel, Dialog, DialogTitle, DialogContent, DialogActions, CircularProgress } from '@mui/material';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 
-const API_URL = process.env.REACT_APP_API_URL || 'https://essencal-form-backend.onrender.com';
+const API_URL = process.env.REACT_APP_API_URL || 'https://essencal-form-backend-production.up.railway.app';
 console.log(API_URL);
 function Register() {
   const [formData, setFormData] = useState({ fullName: '', email: '', phone: '', password: '', confirmPassword: '' });

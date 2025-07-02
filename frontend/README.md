@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Essencial Form Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Sistema de formulário para aplicação de empréstimos.
 
 ## Available Scripts
 
@@ -26,6 +26,21 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
+
+### `npm run vercel-build`
+
+Builds the app specifically for Vercel deployment.
+
+## Deploy no Vercel
+
+1. Instale a CLI do Vercel: `npm i -g vercel`
+2. Na pasta do frontend: `vercel --build-env REACT_APP_API_URL=https://essencal-form-backend-production.up.railway.app`
+3. Siga as instruções no terminal
+
+## Configuração de Ambiente
+
+- **Desenvolvimento**: usa `.env.local` com API local
+- **Produção**: usa `.env.production` com API do Railway
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 

@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { authFetch } from './authFetch';
 import { useNavigate } from 'react-router-dom';
 
-const API_URL = process.env.REACT_APP_API_URL || 'https://essencal-form-backend.onrender.com';
+const API_URL = process.env.REACT_APP_API_URL || 'https://essencal-form-backend-production.up.railway.app';
 
 const Menu = ({ onNavigate }) => {
   const navigate = useNavigate();

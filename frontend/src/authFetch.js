@@ -1,6 +1,6 @@
 // Utilitário para requisições autenticadas com refresh automático do token JWT
 
-const API_URL = process.env.REACT_APP_API_URL || 'https://essencal-form-backend.onrender.com';
+const API_URL = process.env.REACT_APP_API_URL || 'https://essencal-form-backend-production.up.railway.app';
 
 async function refreshAccessToken() {
   const refreshToken = localStorage.getItem('refreshToken');

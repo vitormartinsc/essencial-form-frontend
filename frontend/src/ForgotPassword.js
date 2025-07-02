@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Container, Box, Typography, TextField, Button, Alert, CircularProgress } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+const API_URL = process.env.REACT_APP_API_URL || 'https://essencal-form-backend-production.up.railway.app';
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');

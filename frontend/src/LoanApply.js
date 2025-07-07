@@ -6,9 +6,9 @@ import LoanApplyStep4, { validateLoanStep4 } from './LoanApplyStep4';
 import HomeIcon from '@mui/icons-material/Home';
 import { Button, Typography, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { authFetch } from './authFetch';
+// import { authFetch } from './authFetch';
 
-const API_URL = process.env.REACT_APP_API_URL || 'https://essencal-form-backend-production.up.railway.app';
+// const API_URL = process.env.REACT_APP_API_URL || 'https://essencal-form-backend-production.up.railway.app';
 
 const LoanApply = () => {
   const [formData, setFormData] = useState({

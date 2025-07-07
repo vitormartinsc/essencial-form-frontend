@@ -7,9 +7,9 @@ import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
 import './MobileInputs.css';
-import { authFetch } from './authFetch';
+// import { authFetch } from './authFetch';
 
-const API_URL = process.env.REACT_APP_API_URL || 'https://essencal-form-backend-production.up.railway.app';
+// const API_URL = process.env.REACT_APP_API_URL || 'https://essencal-form-backend-production.up.railway.app';
 
 function formatCep(value) {
   // Remove tudo que não for número
@@ -24,14 +24,14 @@ function formatCep(value) {
 }
 
 // Utilitário para converter camelCase para snake_case
-function toSnakeCase(obj) {
-  const newObj = {};
-  for (const key in obj) {
-    const snakeKey = key.replace(/([A-Z])/g, "_$1").toLowerCase();
-    newObj[snakeKey] = obj[key];
-  }
-  return newObj;
-}
+// function toSnakeCase(obj) {
+//   const newObj = {};
+//   for (const key in obj) {
+//     const snakeKey = key.replace(/([A-Z])/g, "_$1").toLowerCase();
+//     newObj[snakeKey] = obj[key];
+//   }
+//   return newObj;
+// }
 
 function Form() {
   const navigate = useNavigate();

@@ -9,7 +9,7 @@ function Register() {
   const [errors, setErrors] = useState({});
   const [privacyOpen, setPrivacyOpen] = useState(false);
   const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
-  const [step, setStep] = useState(1); // NOVO: controla a etapa do registro
+  const [step, setStep] = useState(1); // NOVO: controla a etapa do registro 
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -63,29 +63,16 @@ function Register() {
     }
     setErrors({});
     setLoading(true);
-    try {
-      // Envia os dados parciais para o backend
-      const response = await fetch(`${API_URL}/register/step1/`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          fullName: formData.fullName,
-          email: formData.email,
-          phone: formData.phone
-        }),
+    // Simulação para testes sem servidor
+    setTimeout(() => {
+      console.log('Step 1 validado:', {
+        fullName: formData.fullName,
+        email: formData.email,
+        phone: formData.phone
       });
-      const data = await response.json();
-      if (response.ok) {
-        setStep(2);
-      } else {
-        // Exibe erro retornado pelo backend
-        setErrors({ api: data.error || 'Erro ao validar dados. Tente novamente.' });
-      }
-    } catch (error) {
-      setErrors({ api: 'Erro de conexão com o servidor.' });
-    } finally {
+      setStep(2);
       setLoading(false);
-    }
+    }, 1000);
   };
 
   const handlePrivacyCheckbox = (e) => setAcceptedPrivacy(e.target.checked);
@@ -101,44 +88,14 @@ function Register() {
       return;
     }
     setErrors({});
-    try {
-      const response = await fetch(`${API_URL}/register/`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          username: formData.email, // username obrigatório para o backend
-          fullName: formData.fullName,
-          email: formData.email,
-          phone: formData.phone,
-          password: formData.password
-        }),
-      });
-      const data = await response.json();
-      if (data.message) {
-        // Login automático via JWT após registro
-        const tokenRes = await fetch(`${API_URL}/api/token/`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            username: formData.email,
-            password: formData.password
-          })
-        });
-        if (tokenRes.ok) {
-          const tokenData = await tokenRes.json();
-          localStorage.setItem('accessToken', tokenData.access);
-          localStorage.setItem('refreshToken', tokenData.refresh);
-          navigate('/form', { replace: true }); // Usando replace para HashRouter
-        } else {
-          alert('Cadastro realizado, mas não foi possível autenticar automaticamente. Faça login.');
-          navigate('/login', { replace: true }); // Usando replace para HashRouter
-        }
-      } else {
-        alert(data.error);
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
+    // Simulação de registro para testes sem servidor
+    setTimeout(() => {
+      // Simula tokens para não quebrar outras funções
+      localStorage.setItem('accessToken', 'fake-token-for-testing');
+      localStorage.setItem('refreshToken', 'fake-refresh-token');
+      alert('Cadastro realizado com sucesso!');
+      navigate('/form', { replace: true });
+    }, 1000);
   };
 
   return (

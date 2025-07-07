@@ -66,48 +66,49 @@ function Form() {
   const [activeStep, setActiveStep] = useState(0);
 
   useEffect(() => {
-    const fetchPersonalData = async () => {
-      try {
-        const response = await authFetch(`${API_URL}/personal-data/get/`, {
-          method: 'GET',
-        });
-        if (response && response.ok) {
-          const data = await response.json();
-          if (!data.error) {
-            // Normaliza para camelCase e remove snake_case do formData
-            setFormData((prev) => {
-              const cleanPrev = { ...prev };
-              // Remove possíveis campos snake_case antigos
-              Object.keys(cleanPrev).forEach((k) => {
-                if (k.includes('_')) delete cleanPrev[k];
-              });
-              return {
-                ...cleanPrev,
-                fullName: data.fullName || data.full_name || data.nome_completo || '',
-                phone: data.phone || '',
-                cpf: data.cpf || '',
-                rg: data.rg || '',
-                email: data.email || '',
-                birthDate: data.birthDate || data.birth_date || data.data_nascimento || '',
-                gender: data.gender || '',
-                maritalStatus: data.maritalStatus || data.marital_status || data.estado_civil || '',
-                nationality: data.nationality || '',
-                cidade: data.city || data.cidade || '',
-                endereco: data.street || data.endereco || '',
-                numero: data.number || data.numero || '',
-                bairro: data.neighborhood || data.bairro || '',
-                uf: data.uf || '',
-                cep: data.cep || '',
-                complemento: data.complement || data.complemento || '',
-              };
-            });
-          }
-        }
-      } catch (error) {
-        // Silencie erro de usuário sem dados
-      }
-    };
-    fetchPersonalData();
+    // Desabilitado temporariamente para testes sem servidor
+    // const fetchPersonalData = async () => {
+    //   try {
+    //     const response = await authFetch(`${API_URL}/personal-data/get/`, {
+    //       method: 'GET',
+    //     });
+    //     if (response && response.ok) {
+    //       const data = await response.json();
+    //       if (!data.error) {
+    //         // Normaliza para camelCase e remove snake_case do formData
+    //         setFormData((prev) => {
+    //           const cleanPrev = { ...prev };
+    //           // Remove possíveis campos snake_case antigos
+    //           Object.keys(cleanPrev).forEach((k) => {
+    //             if (k.includes('_')) delete cleanPrev[k];
+    //           });
+    //           return {
+    //             ...cleanPrev,
+    //             fullName: data.fullName || data.full_name || data.nome_completo || '',
+    //             phone: data.phone || '',
+    //             cpf: data.cpf || '',
+    //             rg: data.rg || '',
+    //             email: data.email || '',
+    //             birthDate: data.birthDate || data.birth_date || data.data_nascimento || '',
+    //             gender: data.gender || '',
+    //             maritalStatus: data.maritalStatus || data.marital_status || data.estado_civil || '',
+    //             nationality: data.nationality || '',
+    //             cidade: data.city || data.cidade || '',
+    //             endereco: data.street || data.endereco || '',
+    //             numero: data.number || data.numero || '',
+    //             bairro: data.neighborhood || data.bairro || '',
+    //             uf: data.uf || '',
+    //             cep: data.cep || '',
+    //             complemento: data.complement || data.complemento || '',
+    //           };
+    //         });
+    //       }
+    //     }
+    //   } catch (error) {
+    //     // Silencie erro de usuário sem dados
+    //   }
+    // };
+    // fetchPersonalData();
   }, []);
 
   const steps = ['Informações Pessoais', 'Dados de Endereço', 'Finalizar'];
@@ -178,48 +179,16 @@ function Form() {
 
   // Função para salvar dados parciais a cada avanço de etapa
   const savePartialData = async (partialData) => {
-    try {
-      console.log('DEBUG savePartialData (parcial):', partialData);
-      console.log('DEBUG savePartialData (parcial, snake_case):', toSnakeCase(partialData));
-      const token = localStorage.getItem('accessToken');
-      await authFetch(`${API_URL}/personal-data/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
-        },
-        body: JSON.stringify(toSnakeCase(partialData)),
-      });
-    } catch (error) {
-      // Silencie erro para não travar o fluxo do usuário
-    }
+    // Desabilitado temporariamente para testes sem servidor
+    console.log('DEBUG savePartialData (parcial):', partialData);
+    console.log('Dados salvos localmente (simulação)');
   };
 
   const handleSubmit = async (e) => {
     if (e && e.preventDefault) e.preventDefault();
-    try {
-      console.log('DEBUG handleSubmit (final):', formData);
-      console.log('DEBUG handleSubmit (final, snake_case):', toSnakeCase(formData));
-      const token = localStorage.getItem('accessToken');
-      const response = await authFetch(`${API_URL}/personal-data/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
-        },
-        body: JSON.stringify(toSnakeCase(formData)),
-      });
-      if (response && response.ok) {
-        await response.json();
-        //alert(data.message || 'Dados enviados com sucesso!');
-      } else if (response) {
-        const errorData = await response.json();
-        alert(errorData.error || 'Erro ao enviar os dados.');
-      }
-    } catch (error) {
-      alert('Erro ao conectar com o servidor.');
-      console.error(error);
-    }
+    // Desabilitado temporariamente para testes sem servidor
+    console.log('DEBUG handleSubmit (final):', formData);
+    alert('Dados enviados com sucesso! (simulação)');
   };
 
   return (

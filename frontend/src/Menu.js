@@ -63,39 +63,12 @@ const Menu = ({ onNavigate }) => {
   };
 
   React.useEffect(() => {
-    // Busca os dados pessoais do usuário ao abrir o menu
-    const fetchPersonalData = async () => {
-      try {
-        const response = await authFetch(`${API_URL}/personal-data/get/`, {
-          method: 'GET',
-        });
-        if (response && response.ok) {
-          const data = await response.json();
-          if (!data.error) {
-            setPersonalData({
-              ...data,
-              fullName: data.fullName || data.full_name || data.nome_completo || '',
-              birthDate: data.birthDate || data.birth_date || data.data_nascimento || '',
-              maritalStatus: data.maritalStatus || data.marital_status || data.estado_civil || '',
-              cidade: data.city || data.cidade || '',
-              endereco: data.street || data.endereco || '',
-              numero: data.number || data.numero || '',
-              bairro: data.neighborhood || data.bairro || '',
-              uf: data.uf || '',
-              cep: data.cep || '',
-              complemento: data.complement || data.complemento || '',
-            });
-          }
-        } else {
-          setPersonalData(null);
-        }
-      } catch (error) {
-        setPersonalData(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchPersonalData();
+    // Desabilitado temporariamente para testes sem servidor
+    // Simula dados vazios para permitir navegação
+    setTimeout(() => {
+      setPersonalData(null);
+      setLoading(false);
+    }, 500);
   }, []);
 
   return (

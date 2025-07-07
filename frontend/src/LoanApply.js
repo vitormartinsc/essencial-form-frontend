@@ -77,19 +77,9 @@ const LoanApply = () => {
       for (let pair of formDataToSend.entries()) {
         console.log(pair[0]+ ':', pair[1]);
       }
-      try {
-        const response = await authFetch(`${API_URL}/loan-apply/`, {
-          method: 'POST',
-          body: formDataToSend,
-        });
-        if (response && response.ok) {
-          alert('Solicitação enviada com sucesso!');
-        } else {
-          alert('Erro ao enviar solicitação.');
-        }
-      } catch (err) {
-        alert('Erro ao conectar com o servidor.');
-      }
+      // Desabilitado temporariamente para testes sem servidor
+      console.log('Solicitação de empréstimo enviada (simulação)');
+      alert('Solicitação enviada com sucesso! (simulação)');
     };
     const listener = () => handleFinalizar();
     window.addEventListener('finalizarSolicitacaoEmprestimo', listener);

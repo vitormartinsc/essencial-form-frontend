@@ -17,26 +17,18 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
-    try {
-      // Solicita o token JWT
-      const tokenResponse = await fetch(`${API_URL}/api/token/`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: formData.email, password: formData.password }),
-      });
-      const tokenData = await tokenResponse.json();
-      if (tokenData.access) {
-        localStorage.setItem('accessToken', tokenData.access);
-        localStorage.setItem('refreshToken', tokenData.refresh);
+    // Simulação de login para testes sem servidor
+    setTimeout(() => {
+      if (formData.email && formData.password) {
+        // Simula tokens para não quebrar outras funções
+        localStorage.setItem('accessToken', 'fake-token-for-testing');
+        localStorage.setItem('refreshToken', 'fake-refresh-token');
         navigate('/menu');
       } else {
-        alert(tokenData.detail || 'Credenciais inválidas');
+        alert('Digite email e senha para continuar');
       }
-    } catch (error) {
-      alert('Erro ao conectar com o servidor.');
-    } finally {
       setLoading(false);
-    }
+    }, 1000);
   };
 
   return (
